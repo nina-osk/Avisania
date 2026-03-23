@@ -5,7 +5,9 @@ function App() {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [activeBenefit, setActiveBenefit] = useState(0);
   const [activePilar, setActivePilar] = useState(0);
+  const [activeServicio, setActiveServicio] = useState(0);
   const pilarTimer = useRef(null);
+  const serviciosRef = useRef(null);
   const benefitTimer = useRef(null);
 
   // Hero: video fades out on scroll, content fades in
@@ -49,47 +51,47 @@ function App() {
       img: '/Eficiencia.png',
       title: 'Eficiencia Clínica',
       subtitle: 'Medicina Preventiva',
-      desc: 'Relación entre recursos utilizados y resultados obtenidos.',
-      points: [
-        'Herramientas digitales y apoyo clínico',
-        'Gestión de flujos, personas y toma de decisiones',
-        'Ciclo clínico: perioperatorio, diagnóstico, gestión, optimización continua',
-        'Medicina predictiva de precisión: modelos validados'
-      ]
+      desc: 'Optimizamos el ciclo clínico completo con herramientas digitales, modelos predictivos validados y flujos de decisión basados en dato real. Porque la eficiencia en sanidad no se improvisa. Se diseña, se mide y se sostiene.',
+      points: []
     },
     {
       icon: 'science',
       img: '/Exoeriencia.png',
       title: 'Experiencia',
-      subtitle: 'Conocimiento',
-      desc: 'Conocimiento + Experiencia = Experto.',
-      points: [
-        'Validación prospectiva',
-        'Data science aplicado',
-        'Prescripción de soluciones tecnológicas por parte de médicos validados',
-        'Know how importado: MIT, Harvard',
-        'Expertise regulatorio: MDR, AI Act, GDPR',
-        'Rigor métrico no negociable',
-        'Arquitectura de decisiones clínicas & tecnológicas',
-      ]
+      subtitle: 'El conocimiento sin aplicación no es expertise. Es archivo.',
+      desc: 'Especialización clínica, data science aplicado y expertise regulatorio —MDR, AI Act, GDPR— para prescribir soluciones con rigor métrico no negociable. Know-how contrastado con referentes internacionales, aplicado a tu realidad.',
+      points: []
     },
     {
       icon: 'rocket_launch',
       img: '/Liderazgo.png',
-      title: 'Auge',
-      subtitle: 'Lideramos…',
-      desc: 'Atracción, internacionalización, alianzas, actitudes e iniciativas.',
-      points: [
-        'Intersección de tecnologías de frontera',
-        'Momentum internacional activo: neurociencias, sueño, prevención de eventos adversos, epilepsia domiciliaria',
-        'Red multicéntrica en curso',
-        'Tecnología sin HYPE',
-        'Ecosistema vivo y adaptativo',
-        'Estándar metodológico propio',
-        'Modelo de desarrollo mixto: Boston lifescience & lean startup / spin off / Cambridge biocapital',
-      ]
+      title: 'AUGE',
+      subtitle: 'Lideramos donde otros aún no han llegado.',
+      desc: 'Internacionalización, alianzas estratégicas e innovación de frontera con propósito. Un modelo de desarrollo híbrido inspirado en Boston Lifescience y Cambridge Biocapital, adaptado a la realidad clínica e institucional española.',
+      points: []
     },
   ];
+
+  const servicios = [
+    { icon: 'database', title: 'Decisiones blindadas por la excelencia del dato', desc: 'Sin dato de calidad no hay estrategia, hay improvisación. Construimos arquitecturas de información fiables que convierten los datos de tu organización en decisiones clínicas, operativas y financieras de alto impacto.' },
+    { icon: 'rocket_launch', title: 'Innovación con triple impacto: económico, social y ambiental', desc: 'Los proyectos que lideramos generan retorno y dejan huella. Integramos desde el diseño las tres dimensiones del impacto para que tu organización crezca con propósito real.' },
+    { icon: 'verified', title: 'Resultados medibles con encaje real en la práctica clínica', desc: 'Solo trabajamos en lo que puede ocurrir de verdad. Indicadores claros desde el inicio, acompañamiento hasta la implementación real. Sin pilotos eternos. Sin KPIs decorativos.' },
+    { icon: 'shield', title: 'I+D+i y digitalización sin riesgos. Solo hacia resultados.', desc: 'Eliminamos la incertidumbre estructural de la innovación. Validamos antes de escalar, alineamos con tu estrategia y protegemos los recursos de tu organización.' },
+  ];
+
+  // Servicios: rotate page (0 or 1) on scroll
+  useEffect(() => {
+    const onScroll = () => {
+      if (!serviciosRef.current) return;
+      const rect = serviciosRef.current.getBoundingClientRect();
+      const sectionHeight = rect.height;
+      const viewportCenter = window.innerHeight / 2;
+      const progress = (viewportCenter - rect.top) / sectionHeight;
+      setActiveServicio(progress > 0.5 ? 1 : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const startPilarTimer = () => {
     clearInterval(pilarTimer.current);
@@ -110,27 +112,19 @@ function App() {
     { icon: 'shield_with_heart', title: 'Tranquilidad profesional', desc: 'Avanzas con control, claridad y menor exposición. Evolucionas con respaldo.' },
   ];
 
-  const totalPages = Math.ceil(benefits.length / 3);
-  const visibleBenefits = benefits.slice(carouselIndex * 3, carouselIndex * 3 + 3);
+  const totalPages = Math.ceil(benefits.length / 2);
+  const visibleBenefits = benefits.slice(carouselIndex * 2, carouselIndex * 2 + 2);
 
   const startBenefitTimer = () => {
     clearInterval(benefitTimer.current);
     benefitTimer.current = setInterval(() => {
-      setActiveBenefit(prev => {
-        const currentPageSize = Math.min(3, benefits.length - carouselIndex * 3);
-        if (prev + 1 >= currentPageSize) {
-          setCarouselIndex(p => (p + 1) % totalPages);
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, 4000);
+      setCarouselIndex(p => (p + 1) % totalPages);
+    }, 5000);
   };
 
   useEffect(() => { startBenefitTimer(); return () => clearInterval(benefitTimer.current); }, [carouselIndex]);
 
-  const handleBenefitClick = (localIdx) => { setActiveBenefit(localIdx); startBenefitTimer(); };
-  const goToPage = (page) => { setCarouselIndex(page); setActiveBenefit(0); startBenefitTimer(); };
+  const goToPage = (page) => { setCarouselIndex(page); startBenefitTimer(); };
 
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
@@ -145,7 +139,6 @@ function App() {
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#servicios">Servicios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#beneficios">Beneficios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#diferencial">Diferencial</a>
-            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros">Nosotros</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/proyectos">Proyectos</Link>
           </nav>
           <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full border-2 border-silver px-8 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
@@ -178,16 +171,27 @@ function App() {
             className="fixed inset-0 z-20 flex items-center overflow-y-auto"
             style={{ opacity: heroContentOpacity, transition: 'opacity 0.1s linear', pointerEvents: heroContentOpacity > 0.1 ? 'auto' : 'none', display: heroContentOpacity === 0 ? 'none' : undefined }}
           >
-            <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-20 pt-20">
-              <div className="flex flex-col gap-5 sm:gap-8 max-w-2xl bg-navy/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-14">
-                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-[1.08] text-white" style={{fontStyle: 'italic'}}>
-                  Generamos{' '}
-                  <span className="text-amber" style={{fontStyle: 'italic'}}>impacto real</span>
-                  <br />en medicina predictiva
+            <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-20 pt-20 pb-6">
+              <div className="flex flex-col gap-4 sm:gap-6 max-w-3xl bg-navy/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-12">
+                <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] text-white" style={{fontStyle: 'italic'}}>
+                  Tu organización genera datos cada día.
+                  <br />
+                  <span className="text-amber" style={{fontStyle: 'italic'}}>¿Cuántos de ellos están transformando decisiones reales?</span>
                 </h1>
-                <p className="max-w-xl text-sm sm:text-lg leading-relaxed text-slate-300 font-light">
-                  Impulsamos proyectos de alto valor con resultados medibles y encaje real en la práctica clínica. No vendemos promesas: entregamos decisiones basadas en la excelencia del dato.
-                </p>
+                <ul className="max-w-xl text-sm sm:text-base leading-relaxed text-slate-300 font-light space-y-1.5">
+                  <li className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-amber text-base mt-0.5">check</span>
+                    <span>Sin pilotos eternos. Sin KPIs decorativos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-amber text-base mt-0.5">check</span>
+                    <span>Encaje real en la práctica clínica desde el primer día</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-amber text-base mt-0.5">check</span>
+                    <span>Innovación sin riesgos. Solo trabajamos hacia resultados</span>
+                  </li>
+                </ul>
                 <div className="flex items-center gap-4 mt-2">
                   <a href="#servicios" className="inline-flex items-center gap-3 rounded-full border-2 border-silver/40 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-black uppercase tracking-widest text-white hover:border-silver hover:text-silver transition-all duration-300 group">
                     Ver Servicios
@@ -204,7 +208,7 @@ function App() {
         ═══════════════════════════════════════════════════════════════ */}
         <section className="relative py-28 px-6 lg:px-20 overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img src="/foto-equipo.png" alt="Equipo Avisania" className="w-full h-full object-cover" />
+            <img src="/Equipo_m%C3%A9dico-cient%C3%ADfico.png" alt="Equipo Avisania" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-navy/70"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-navy/60"></div>
           </div>
@@ -226,32 +230,48 @@ function App() {
         {/* ═══════════════════════════════════════════════════════════════
             SECTION 2 — SERVICIOS
         ═══════════════════════════════════════════════════════════════ */}
-        <section className="py-28 px-6 lg:px-20 relative" id="servicios">
+        <section className="py-28 px-6 lg:px-20 relative" id="servicios" ref={serviciosRef}>
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 text-center max-w-4xl mx-auto">
-              <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Lo que nos define</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-8">Nuestros Servicios</h2>
-              <p className="text-lg text-slate-300 font-light leading-relaxed">
-                Con Avisania generamos <span className="text-amber font-semibold">impacto positivo</span> impulsando proyectos de alto valor, gracias a la experiencia de <span className="text-amber font-semibold">&gt;12 años</span> del grupo, que nos permite liderar proyectos de éxito en medicina predictiva. Con nosotros, inicias un camino hacia:
-              </p>
+              <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Servicios</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Cuatro palancas de <span className="text-amber">transformación real</span></h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              {[
-                { icon: 'database', title: 'La toma de decisiones basadas en la excelencia del dato', desc: 'En la era del dato, sin éste no hay decisiones.' },
-                { icon: 'rocket_launch', title: 'Impulso proyectos de alto valor añadido que generan triple impacto con propósito', desc: 'Económico, social y Ambiental.' },
-                { icon: 'verified', title: 'Resultados medibles y encaje real en la práctica clínica', desc: 'Sólo trabajamos proyectos realistas.' },
-                { icon: 'shield', title: 'Investigación, digitalización e innovación sin riesgos', desc: 'Sólo trabajamos hacia resultados.' },
-              ].map((item, i) => (
-                <div key={i} className="group flex gap-6 border border-white/5 bg-navy-dark/50 p-8 rounded-[2rem] professional-shadow transition-all duration-500 hover:border-silver/30 hover:-translate-y-2">
-                  <div className="flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber/10 text-amber group-hover:bg-amber group-hover:text-navy transition-all duration-500">
-                    <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+            {/* Imagen equipo médico */}
+            <div className="flex justify-center mb-12">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-silver/10 rounded-full blur-3xl pointer-events-none"></div>
+                <img src="/Equipo_m%C3%A9dico-cient%C3%ADfico.png" alt="Equipo médico-científico" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-2xl object-cover border border-white/10 shadow-2xl" />
+              </div>
+            </div>
+
+            {/* 2 tarjetas visibles con flechas laterales */}
+            <div className="relative max-w-5xl mx-auto px-12 md:px-16">
+              <button onClick={() => setActiveServicio(0)} disabled={activeServicio === 0} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-amber hover:text-amber disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg">
+                <span className="material-symbols-outlined text-lg">arrow_back</span>
+              </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-700">
+                {servicios.slice(activeServicio * 2, activeServicio * 2 + 2).map((s, i) => (
+                  <div key={activeServicio * 2 + i} className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-amber/30 p-8 flex flex-col items-center text-center shadow-[0_20px_60px_rgba(212,137,60,0.1)] animate-[fadeIn_0.5s_ease-in-out]">
+                    <div className="w-16 h-16 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center mb-5">
+                      <span className="material-symbols-outlined text-amber text-3xl">{s.icon}</span>
+                    </div>
+                    <h3 className="text-xl font-black text-white mb-3">{s.title}</h3>
+                    <p className="text-slate-400 font-light text-sm leading-relaxed text-justify">{s.desc}</p>
                   </div>
-                  <div>
-                    <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
-                    <p className="text-sm leading-relaxed text-slate-400 font-light">{item.desc}</p>
-                  </div>
-                </div>
+                ))}
+              </div>
+
+              <button onClick={() => setActiveServicio(1)} disabled={activeServicio === 1} className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-amber hover:text-amber disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg">
+                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+              </button>
+            </div>
+
+            {/* Dots indicator */}
+            <div className="flex justify-center gap-2 mt-10">
+              {[0, 1].map(i => (
+                <button key={i} onClick={() => setActiveServicio(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === activeServicio ? 'bg-amber w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
               ))}
             </div>
           </div>
@@ -263,8 +283,8 @@ function App() {
         <section className="py-28 px-6 lg:px-20 bg-navy-dark relative" id="pilares">
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 text-center max-w-4xl mx-auto">
-              <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Nuestra esencia</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-8">Nuestros 3 Pilares</h2>
+              <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Pilares</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-white mb-8">Sobre qué está construido <span className="text-silver">todo lo que hacemos</span></h2>
             </div>
 
             {/* ── MOBILE: horizontal carousel with arrows ── */}
@@ -287,7 +307,7 @@ function App() {
                           </div>
                           <h3 className="text-xl font-black text-white mb-1">{p.title}</h3>
                           <p className="text-silver text-sm font-semibold italic mb-3">{p.subtitle}</p>
-                          <p className="text-slate-400 font-light text-sm leading-relaxed mb-4">{p.desc}</p>
+                          <p className="text-slate-400 font-light text-sm leading-relaxed mb-4 text-justify">{p.desc}</p>
                           <ul className="text-left text-slate-400 text-xs font-light leading-relaxed space-y-1.5 w-full">
                             {p.points.map((pt, j) => (
                               <li key={j} className="flex gap-2"><span className="text-silver mt-0.5">—</span><span>{pt}</span></li>
@@ -304,8 +324,13 @@ function App() {
               </button>
             </div>
 
-            {/* ── DESKTOP: 4-col grid with active scale effect ── */}
-            <div className="hidden md:grid md:grid-cols-3 gap-5 items-center">
+            {/* ── DESKTOP: 3-col grid with arrows ── */}
+            <div className="hidden md:block relative">
+              <button onClick={() => handlePilarClick(Math.max(0, activePilar - 1))} disabled={activePilar === 0} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-silver hover:text-silver disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg">
+                <span className="material-symbols-outlined text-lg">arrow_back</span>
+              </button>
+
+              <div className="grid md:grid-cols-3 gap-5 items-center">
               {pilares.map((p, i) => (
                 <div
                   key={i}
@@ -327,7 +352,7 @@ function App() {
                   </div>
                   <h3 className="text-lg font-black text-white mb-1">{p.title}</h3>
                   <p className="text-silver text-xs font-semibold italic mb-2">{p.subtitle}</p>
-                  <p className={`text-slate-400 font-light text-sm leading-relaxed max-w-[280px] transition-all duration-500 ${i === activePilar ? 'opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>{p.desc}</p>
+                  <p className={`text-slate-400 font-light text-sm leading-relaxed max-w-[280px] text-justify transition-all duration-500 ${i === activePilar ? 'opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>{p.desc}</p>
                   <ul className={`text-left text-slate-400 text-xs font-light leading-relaxed space-y-1 w-full max-w-[280px] mt-3 transition-all duration-500 ${i === activePilar ? 'opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
                     {p.points.map((pt, j) => (
                       <li key={j} className="flex gap-2"><span className="text-silver mt-0.5">—</span><span>{pt}</span></li>
@@ -335,6 +360,11 @@ function App() {
                   </ul>
                 </div>
               ))}
+              </div>
+
+              <button onClick={() => handlePilarClick(Math.min(pilares.length - 1, activePilar + 1))} disabled={activePilar >= pilares.length - 1} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-silver hover:text-silver disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg">
+                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+              </button>
             </div>
 
             {/* Dots indicator */}
@@ -357,36 +387,31 @@ function App() {
               <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">Beneficios concretos,<br/><span className="text-silver">no promesas abstractas</span></h2>
             </div>
 
-            {/* Cards grid — active card enlarges */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-              {visibleBenefits.map((b, i) => (
-                <div
-                  key={carouselIndex * 3 + i}
-                  onClick={() => handleBenefitClick(i)}
-                  className={`cursor-pointer bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 flex flex-col items-center text-center transition-all duration-500 origin-center ${
-                    i === activeBenefit
-                      ? 'border-silver/50 md:scale-105 shadow-[0_20px_60px_rgba(168,184,200,0.2)] z-10'
-                      : 'border-white/10 md:scale-[0.92] md:opacity-60 md:hover:opacity-80 hidden md:flex'
-                  }`}
-                >
-                  {/* Icon area */}
-                  <div className="w-full h-40 flex items-center justify-center mb-6 relative">
-                    <div className="absolute inset-0 bg-gradient-to-b from-silver/5 to-transparent rounded-t-[2rem]"></div>
-                    <div className={`relative w-24 h-24 rounded-3xl bg-gradient-to-br from-silver/20 to-silver/5 border border-silver/20 flex items-center justify-center transition-all duration-500 ${
-                      i === activeBenefit ? 'shadow-[0_20px_50px_rgba(168,184,200,0.25)] scale-110' : 'shadow-[0_15px_40px_rgba(168,184,200,0.15)]'
-                    }`}>
-                      <span className="material-symbols-outlined text-silver" style={{fontSize:'3rem'}}>{b.icon}</span>
+            {/* Cards grid — 2 tarjetas con flechas laterales */}
+            <div className="relative max-w-5xl mx-auto">
+              <button onClick={() => goToPage(Math.max(0, carouselIndex - 1))} disabled={carouselIndex === 0} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-14 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-silver hover:text-silver disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg">
+                <span className="material-symbols-outlined text-lg">arrow_back</span>
+              </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-700">
+                {visibleBenefits.map((b, i) => (
+                  <div
+                    key={carouselIndex * 2 + i}
+                    className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-silver/30 p-8 flex flex-col items-center text-center shadow-[0_20px_60px_rgba(168,184,200,0.1)] animate-[fadeIn_0.5s_ease-in-out]"
+                  >
+                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-silver/20 to-silver/5 border border-silver/20 flex items-center justify-center mb-5 shadow-[0_15px_40px_rgba(168,184,200,0.15)]">
+                      <span className="material-symbols-outlined text-silver" style={{fontSize:'2.5rem'}}>{b.icon}</span>
                     </div>
+                    <h3 className="text-xl font-black text-white mb-3">{b.title}</h3>
+                    <p className="text-slate-400 font-light text-sm leading-relaxed mb-3 text-justify">{b.desc}</p>
+                    {b.highlight && <p className="text-sm text-amber font-semibold mb-1">{b.highlight}</p>}
                   </div>
-                  {/* Content */}
-                  <h3 className="text-lg font-black text-white mb-3">{b.title}</h3>
-                  <p className={`text-slate-400 font-light text-sm leading-relaxed max-w-[280px] transition-all duration-500 ${i === activeBenefit ? 'max-h-40 opacity-100 mb-4' : 'md:max-h-0 md:opacity-0 md:overflow-hidden md:mb-0 max-h-40 opacity-100 mb-4'}`}>{b.desc}</p>
-                  {b.highlight && <p className={`text-sm text-amber font-semibold transition-all duration-500 ${i === activeBenefit ? 'max-h-20 opacity-100 mb-1' : 'md:max-h-0 md:opacity-0 md:overflow-hidden max-h-20 opacity-100 mb-1'}`}>{b.highlight}</p>}
-                  <a href="#servicios" className={`mt-auto inline-flex items-center gap-2 border border-silver/40 rounded-full px-7 py-2.5 text-[11px] font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300 ${i === activeBenefit ? 'opacity-100' : 'md:opacity-0 md:h-0 md:overflow-hidden md:p-0 md:border-0 opacity-100'}`}>
-                    Ver más
-                  </a>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <button onClick={() => goToPage(Math.min(totalPages - 1, carouselIndex + 1))} disabled={carouselIndex >= totalPages - 1} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-14 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-silver hover:text-silver disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg">
+                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+              </button>
             </div>
 
             {/* Page dots */}
@@ -435,7 +460,7 @@ function App() {
               <div className="flex justify-center -mb-10 md:-mb-20 relative z-10">
                 <div className="relative">
                   <div className="absolute -inset-4 md:-inset-8 bg-silver/10 rounded-full blur-3xl pointer-events-none"></div>
-                  <img src="/bg-medico.png" alt="Entorno clínico" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-3xl object-cover border border-white/10 shadow-2xl" />
+                  <img src="/Background_m%C3%A9dico.png" alt="Entorno clínico" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-3xl object-cover border border-white/10 shadow-2xl" />
                 </div>
               </div>
 
@@ -461,8 +486,14 @@ function App() {
         {/* ═══════════════════════════════════════════════════════════════
             SECTION 5 — CTA
         ═══════════════════════════════════════════════════════════════ */}
-        <section className="py-32 px-6 lg:px-20 bg-navy-dark" id="contacto">
-          <div className="mx-auto max-w-4xl text-center">
+        <section className="relative py-32 px-6 lg:px-20 overflow-hidden" id="contacto">
+          {/* Fondo cabeza holográfica */}
+          <div className="absolute inset-0 z-0">
+            <img src="/Cabeza_humana_hologr%C3%A1fica.png" alt="" className="w-full h-full object-cover opacity-15" />
+            <div className="absolute inset-0 bg-navy-dark/80"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/60 to-navy-dark/80"></div>
+          </div>
+          <div className="relative z-10 mx-auto max-w-4xl text-center">
             <h2 className="text-4xl lg:text-6xl font-black text-white leading-tight mb-8" style={{fontStyle: 'italic'}}>
               Innovar deja de ser incierto cuando lo haces con quien ya sabe cómo hacerlo.
             </h2>

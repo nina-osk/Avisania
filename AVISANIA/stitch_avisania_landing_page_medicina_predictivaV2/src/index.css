@@ -16,6 +16,11 @@
   box-shadow: 0 10px 25px -5px rgba(168, 184, 200, 0.3);
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Hide scrollbar for a cleaner look if desired, or keep default */
 ::-webkit-scrollbar {
   width: 8px;
