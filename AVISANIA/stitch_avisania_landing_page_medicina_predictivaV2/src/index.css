@@ -9,11 +9,11 @@
 }
 
 .professional-shadow {
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.05);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 184, 200, 0.08);
 }
 
-.gold-shadow {
-  box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.3);
+.silver-shadow {
+  box-shadow: 0 10px 25px -5px rgba(168, 184, 200, 0.3);
 }
 
 /* Hide scrollbar for a cleaner look if desired, or keep default */
@@ -21,9 +21,9 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #00152b;
+  background: #040E18;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D4AF37;
+  background: #A8B8C8;
   border-radius: 4px;
 }

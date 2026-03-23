@@ -8,11 +8,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        "gold": "#D4AF37",
+        "silver": "#A8B8C8",
+        "amber": "#D4893C",
         "navy": {
-          DEFAULT: "#001F3F",
-          dark: "#00152b",
-          light: "#002d5a"
+          DEFAULT: "#071826",
+          dark: "#040E18",
+          light: "#0C2538"
         }
       },
       fontFamily: {
