@@ -6,6 +6,7 @@ function App() {
   const [activeBenefit, setActiveBenefit] = useState(0);
   const [activePilar, setActivePilar] = useState(0);
   const [activeServicio, setActiveServicio] = useState(0);
+  const [mobileMenu, setMobileMenu] = useState(false);
   const pilarTimer = useRef(null);
   const serviciosRef = useRef(null);
   const benefitTimer = useRef(null);
@@ -158,9 +159,9 @@ function App() {
       {/* ═══════════════════════════════════════════════════════════════
           HEADER
       ═══════════════════════════════════════════════════════════════ */}
-      <header className="fixed top-0 z-50 w-full bg-navy/60 backdrop-blur-2xl px-6 lg:px-20 py-5">
+      <header className="fixed top-0 z-50 w-full bg-navy/60 backdrop-blur-2xl px-4 sm:px-6 lg:px-20 py-4 sm:py-5">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <img src="/Logo%20plata.png" alt="Avisania Lab" className="h-10 w-auto" />
+          <img src="/Logo%20plata.png" alt="Avisania Lab" className="h-8 sm:h-10 w-auto" />
           <nav className="hidden md:flex items-center gap-10">
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#servicios">Servicios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#beneficios">Beneficios</a>
@@ -169,10 +170,29 @@ function App() {
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros">Nosotros</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/proyectos">Proyectos</Link>
           </nav>
-          <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full border-2 border-silver px-8 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
-            Contactar
-          </a>
+          <div className="flex items-center gap-3">
+            <a href="mailto:pablo.hernandez@avisania.tech" className="hidden sm:inline-flex rounded-full border-2 border-silver px-8 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
+              Contactar
+            </a>
+            <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden w-10 h-10 flex items-center justify-center text-silver">
+              <span className="material-symbols-outlined text-2xl">{mobileMenu ? 'close' : 'menu'}</span>
+            </button>
+          </div>
         </div>
+        {/* Mobile menu */}
+        {mobileMenu && (
+          <div className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4 flex flex-col gap-4 animate-[fadeIn_0.3s_ease-in-out]">
+            <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#servicios" onClick={() => setMobileMenu(false)}>Servicios</a>
+            <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#beneficios" onClick={() => setMobileMenu(false)}>Beneficios</a>
+            <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#diferencial" onClick={() => setMobileMenu(false)}>Diferencial</a>
+            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/quienes-somos" onClick={() => setMobileMenu(false)}>Quiénes somos</Link>
+            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros" onClick={() => setMobileMenu(false)}>Nosotros</Link>
+            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/proyectos" onClick={() => setMobileMenu(false)}>Proyectos</Link>
+            <a href="mailto:pablo.hernandez@avisania.tech" className="inline-flex justify-center rounded-full border-2 border-silver px-6 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
+              Contactar
+            </a>
+          </div>
+        )}
       </header>
 
       <main className="flex-1">
@@ -187,7 +207,7 @@ function App() {
             className="fixed inset-0 z-30 overflow-hidden"
             style={{ opacity: videoFade, transition: 'opacity 0.1s linear', pointerEvents: videoFade > 0.1 ? 'auto' : 'none', display: videoFade === 0 ? 'none' : undefined }}
           >
-            <video autoPlay muted loop playsInline webkit-playsinline="true" className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover">
+            <video autoPlay muted loop playsInline webkitPlaysinline="true" className="absolute inset-0 w-full h-full object-cover">
               <source src="/Video_presentacion-1.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-navy/20"></div>
@@ -502,17 +522,17 @@ function App() {
               </div>
             </div>
 
-            {/* Image overlapping stats */}
+            {/* Image + stats */}
             <div className="relative mt-16">
-              <div className="flex justify-center -mb-10 md:-mb-20 relative z-10">
+              <div className="flex justify-center mb-10 relative z-10">
                 <div className="relative">
                   <div className="absolute -inset-4 md:-inset-8 bg-silver/10 rounded-full blur-3xl pointer-events-none"></div>
-                  <img src="/Background_m%C3%A9dico.png" alt="Entorno clínico" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-3xl object-cover border border-white/10 shadow-2xl" />
+                  <img src="/Equipo_m%C3%A9dico-cient%C3%ADfico.png" alt="Médico y paciente" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-3xl object-cover border border-white/10 shadow-2xl" />
                 </div>
               </div>
 
               {/* Stats bar */}
-              <div className="relative z-0 grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/10 rounded-[1.5rem] overflow-hidden bg-navy-dark/80 backdrop-blur-md pt-16 md:pt-24">
+              <div className="relative z-0 grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/10 rounded-[1.5rem] overflow-hidden bg-navy-dark/80 backdrop-blur-md">
               <div className="p-6 md:p-8 text-center border-b md:border-b-0 md:border-r border-white/10">
                 <p className="text-xs text-slate-500 font-light mb-2">Años de experiencia</p>
                 <p className="text-3xl lg:text-4xl font-black text-silver">+12</p>
