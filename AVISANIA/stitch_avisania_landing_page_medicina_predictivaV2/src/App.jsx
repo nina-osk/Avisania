@@ -73,13 +73,37 @@ function App() {
   ];
 
   const servicios = [
-    { icon: 'database', title: 'Decisiones blindadas por la excelencia del dato', desc: 'Sin dato de calidad no hay estrategia, hay improvisación. Construimos arquitecturas de información fiables que convierten los datos de tu organización en decisiones clínicas, operativas y financieras de alto impacto.' },
-    { icon: 'rocket_launch', title: 'Innovación con triple impacto: económico, social y ambiental', desc: 'Los proyectos que lideramos generan retorno y dejan huella. Integramos desde el diseño las tres dimensiones del impacto para que tu organización crezca con propósito real.' },
-    { icon: 'verified', title: 'Resultados medibles con encaje real en la práctica clínica', desc: 'Solo trabajamos en lo que puede ocurrir de verdad. Indicadores claros desde el inicio, acompañamiento hasta la implementación real. Sin pilotos eternos. Sin KPIs decorativos.' },
-    { icon: 'shield', title: 'I+D+i y digitalización sin riesgos. Solo hacia resultados.', desc: 'Eliminamos la incertidumbre estructural de la innovación. Validamos antes de escalar, alineamos con tu estrategia y protegemos los recursos de tu organización.' },
+    {
+      icon: 'science',
+      title: 'Promoción y Coordinación de proyectos I+D+i',
+      items: [
+        { icon: 'analytics', text: 'Ciencia de datos en medicina predictiva oncológica, hemodinámica y perioperatoria.' },
+        { icon: 'radiology', text: 'Aprendizaje & diagnóstico por imagen: autosegmentación y detección de cáncer.' },
+        { icon: 'biotech', text: 'Desarrollo de ensayos clínicos y prototipos funcionales: medicina predictiva de precisión y software médico.' },
+      ],
+    },
+    {
+      icon: 'database',
+      title: 'Transformación útil del dato crítico',
+      items: [
+        { icon: 'assignment', text: 'Soluciones administrativas.' },
+        { icon: 'hub', text: 'Herramientas de investigación y gestión de dato (SMART-mol).' },
+        { icon: 'shield_lock', text: 'Ciberseguridad e interoperabilidad.' },
+        { icon: 'monitoring', text: 'MEDINT.' },
+      ],
+    },
+    {
+      icon: 'groups',
+      title: 'Talento: consultoría y asesoría',
+      items: [
+        { icon: 'precision_manufacturing', text: 'Digitalización e innovación en anestesiología, oncología y perioperatorios.' },
+        { icon: 'sync_alt', text: 'Transferencia tecnológica en tecnología sanitaria de precisión.' },
+        { icon: 'account_balance', text: 'Fondos públicos para desarrollo de estudios y desarrollo multicéntricos.' },
+      ],
+    },
   ];
 
-  // Servicios: rotate page (0 or 1) on scroll
+  // Servicios: highlight card based on scroll position
   useEffect(() => {
     const onScroll = () => {
       if (!serviciosRef.current) return;
@@ -87,7 +111,9 @@ function App() {
       const sectionHeight = rect.height;
       const viewportCenter = window.innerHeight / 2;
       const progress = (viewportCenter - rect.top) / sectionHeight;
-      setActiveServicio(progress > 0.5 ? 1 : 0);
+      if (progress < 0.33) setActiveServicio(0);
+      else if (progress < 0.66) setActiveServicio(1);
+      else setActiveServicio(2);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -139,6 +165,8 @@ function App() {
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#servicios">Servicios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#beneficios">Beneficios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#diferencial">Diferencial</a>
+            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/quienes-somos">Quiénes somos</Link>
+            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros">Nosotros</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/proyectos">Proyectos</Link>
           </nav>
           <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full border-2 border-silver px-8 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
@@ -234,43 +262,62 @@ function App() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 text-center max-w-4xl mx-auto">
               <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Servicios</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Cuatro palancas de <span className="text-amber">transformación real</span></h2>
+              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Tres ejes de <span className="text-amber">transformación real</span></h2>
             </div>
 
             {/* Imagen equipo médico */}
-            <div className="flex justify-center mb-12">
+            <div className="flex justify-center mb-14">
               <div className="relative">
                 <div className="absolute -inset-4 bg-silver/10 rounded-full blur-3xl pointer-events-none"></div>
                 <img src="/Equipo_m%C3%A9dico-cient%C3%ADfico.png" alt="Equipo médico-científico" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-2xl object-cover border border-white/10 shadow-2xl" />
               </div>
             </div>
 
-            {/* 2 tarjetas visibles con flechas laterales */}
-            <div className="relative max-w-5xl mx-auto px-12 md:px-16">
-              <button onClick={() => setActiveServicio(0)} disabled={activeServicio === 0} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-amber hover:text-amber disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg">
-                <span className="material-symbols-outlined text-lg">arrow_back</span>
-              </button>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-700">
-                {servicios.slice(activeServicio * 2, activeServicio * 2 + 2).map((s, i) => (
-                  <div key={activeServicio * 2 + i} className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-amber/30 p-8 flex flex-col items-center text-center shadow-[0_20px_60px_rgba(212,137,60,0.1)] animate-[fadeIn_0.5s_ease-in-out]">
-                    <div className="w-16 h-16 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center mb-5">
-                      <span className="material-symbols-outlined text-amber text-3xl">{s.icon}</span>
+            {/* 3 tarjetas expandibles */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {servicios.map((s, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setActiveServicio(idx)}
+                  className={`cursor-pointer bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 flex flex-col transition-all duration-500 ${
+                    idx === activeServicio
+                      ? 'border-amber/40 shadow-[0_20px_60px_rgba(212,137,60,0.12)] scale-[1.02]'
+                      : 'border-white/10 hover:border-amber/20'
+                  }`}
+                >
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                      idx === activeServicio
+                        ? 'bg-amber/15 border border-amber/30 shadow-[0_8px_24px_rgba(212,137,60,0.15)]'
+                        : 'bg-amber/10 border border-amber/20'
+                    }`}>
+                      <span className="material-symbols-outlined text-amber text-2xl">{s.icon}</span>
                     </div>
-                    <h3 className="text-xl font-black text-white mb-3">{s.title}</h3>
-                    <p className="text-slate-400 font-light text-sm leading-relaxed text-justify">{s.desc}</p>
+                    <h3 className="text-lg font-black text-white leading-snug flex-1">{s.title}</h3>
                   </div>
-                ))}
-              </div>
 
-              <button onClick={() => setActiveServicio(1)} disabled={activeServicio === 1} className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-amber hover:text-amber disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg">
-                <span className="material-symbols-outlined text-lg">arrow_forward</span>
-              </button>
+                  <div className={`overflow-hidden transition-all duration-500 ${idx === activeServicio ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-[500px] lg:opacity-60'}`}>
+                    <ul className="space-y-3">
+                      {s.items.map((item, j) => (
+                        <li key={j} className="flex items-start gap-3 group/item">
+                          <span className={`material-symbols-outlined text-lg mt-0.5 transition-colors duration-300 ${idx === activeServicio ? 'text-amber' : 'text-slate-500'}`}>{item.icon}</span>
+                          <span className="text-sm text-slate-300 font-light leading-relaxed">{item.text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Mobile expand indicator */}
+                  <div className={`lg:hidden flex justify-center mt-4 transition-transform duration-300 ${idx === activeServicio ? 'rotate-180' : ''}`}>
+                    <span className="material-symbols-outlined text-slate-500 text-sm">expand_more</span>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Dots indicator */}
-            <div className="flex justify-center gap-2 mt-10">
-              {[0, 1].map(i => (
+            <div className="flex justify-center gap-2 mt-10 lg:hidden">
+              {servicios.map((_, i) => (
                 <button key={i} onClick={() => setActiveServicio(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === activeServicio ? 'bg-amber w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
               ))}
             </div>
