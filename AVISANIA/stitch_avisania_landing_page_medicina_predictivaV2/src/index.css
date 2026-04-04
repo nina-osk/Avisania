@@ -5,7 +5,44 @@
 @layer base {
   body {
     @apply bg-navy text-slate-200;
+    font-family: 'Space Grotesk', sans-serif;
   }
+
+  /* Cormorant Garamond for italic display headings */
+  h1, h2 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  h1[style*="italic"], h2[style*="italic"] {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ── Signature: subtle grain texture overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px;
+}
+
+/* ── Signature: teal top-glow line ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #00BCD4 40%, #00BCD4 60%, transparent 100%);
+  z-index: 9999;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .professional-shadow {
@@ -14,6 +51,10 @@
 
 .silver-shadow {
   box-shadow: 0 10px 25px -5px rgba(168, 184, 200, 0.3);
+}
+
+.teal-glow {
+  box-shadow: 0 0 30px rgba(0, 188, 212, 0.2), 0 0 60px rgba(0, 188, 212, 0.08);
 }
 
 @keyframes fadeIn {
@@ -32,14 +73,33 @@
   50% { transform: translate(-50%,-50%) scale(1.15); }
 }
 
-/* Hide scrollbar for a cleaner look if desired, or keep default */
+@keyframes tealPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,188,212,0.15); }
+  50% { box-shadow: 0 0 40px rgba(0,188,212,0.35); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #040E18;
 }
 ::-webkit-scrollbar-thumb {
-  background: #A8B8C8;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #00BCD4, #A8B8C8);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00BCD4;
 }

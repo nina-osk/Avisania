@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 function App() {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -13,8 +14,11 @@ function App() {
 
   // Hero: video fades out on scroll, content fades in
   const heroRef = useRef(null);
+  const videoRef = useRef(null);
   const [videoFade, setVideoFade] = useState(1);
   const [heroContentOpacity, setHeroContentOpacity] = useState(0);
+  const [videoEnded, setVideoEnded] = useState(false);
+  const [diferentialVideoEnded, setDiferentialVideoEnded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -66,7 +70,7 @@ function App() {
     {
       icon: 'rocket_launch',
       img: '/Liderazgo.png',
-      title: 'AUGE',
+      title: 'Evolución',
       subtitle: 'Lideramos donde otros aún no han llegado.',
       desc: 'Internacionalización, alianzas estratégicas e innovación de frontera con propósito. Un modelo de desarrollo híbrido inspirado en Boston Lifescience y Cambridge Biocapital, adaptado a la realidad clínica e institucional española.',
       points: []
@@ -161,18 +165,17 @@ function App() {
       ═══════════════════════════════════════════════════════════════ */}
       <header className="fixed top-0 z-50 w-full bg-navy/60 backdrop-blur-2xl px-4 sm:px-6 lg:px-20 py-4 sm:py-5">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <img src="/Logo%20plata.png" alt="Avisania Lab" className="h-8 sm:h-10 w-auto" />
+          <img src="/Avisania%20Logo.png" alt="Avisania Lab" className="h-12 sm:h-16 w-auto" />
           <nav className="hidden md:flex items-center gap-10">
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#servicios">Servicios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#beneficios">Beneficios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#diferencial">Diferencial</a>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/quienes-somos">Quiénes somos</Link>
-            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros">Nosotros</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/proyectos">Proyectos</Link>
           </nav>
           <div className="flex items-center gap-3">
-            <a href="mailto:pablo.hernandez@avisania.tech" className="hidden sm:inline-flex rounded-full border-2 border-silver px-8 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
-              Contactar
+            <a href="https://wa.me/34630251862" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" className="hidden sm:inline-flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-300">
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             </a>
             <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden w-10 h-10 flex items-center justify-center text-silver">
               <span className="material-symbols-outlined text-2xl">{mobileMenu ? 'close' : 'menu'}</span>
@@ -186,10 +189,10 @@ function App() {
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#beneficios" onClick={() => setMobileMenu(false)}>Beneficios</a>
             <a className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" href="#diferencial" onClick={() => setMobileMenu(false)}>Diferencial</a>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/quienes-somos" onClick={() => setMobileMenu(false)}>Quiénes somos</Link>
-            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros" onClick={() => setMobileMenu(false)}>Nosotros</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/proyectos" onClick={() => setMobileMenu(false)}>Proyectos</Link>
-            <a href="mailto:pablo.hernandez@avisania.tech" className="inline-flex justify-center rounded-full border-2 border-silver px-6 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
-              Contactar
+            <a href="https://wa.me/34630251862" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#25D366] px-6 py-2.5 text-sm font-bold text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-300">
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
             </a>
           </div>
         )}
@@ -202,14 +205,39 @@ function App() {
         ═══════════════════════════════════════════════════════════════ */}
         <section ref={heroRef} className="relative bg-navy" style={{ height: '150vh' }}>
 
-          {/* Video — fixed, fades out on scroll */}
+          {/* Video / Logo background — fixed, fades out on scroll */}
           <div
             className="fixed inset-0 z-30 overflow-hidden"
             style={{ opacity: videoFade, transition: 'opacity 0.1s linear', pointerEvents: videoFade > 0.1 ? 'auto' : 'none', display: videoFade === 0 ? 'none' : undefined }}
           >
-            <video autoPlay muted loop playsInline webkitPlaysinline="true" className="absolute inset-0 w-full h-full object-cover">
-              <source src="/Video_presentacion-1.mp4" type="video/mp4" />
+            {/* Video: plays once, fades out when finished */}
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              onEnded={() => setVideoEnded(true)}
+              onError={() => setVideoEnded(true)}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+              style={{ opacity: videoEnded ? 0 : 1, pointerEvents: 'none' }}
+            >
+              <source src="/Video%20presentacion.mp4" type="video/mp4" />
             </video>
+
+            {/* Logo background: aparece cuando el video termina */}
+            <div
+              className="absolute inset-0 bg-navy flex items-center justify-center transition-opacity duration-1000"
+              style={{ opacity: videoEnded ? 1 : 0 }}
+            >
+              {/* Glow radial detrás del logo */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,188,212,0.08)_0%,transparent_70%)]" />
+              <img
+                src="/Avisania%20Logo.png"
+                alt="Avisania Lab"
+                className="relative w-40 sm:w-56 lg:w-72 xl:w-80 opacity-20 select-none pointer-events-none"
+              />
+            </div>
+
             <div className="absolute inset-0 bg-navy/20"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/20"></div>
           </div>
@@ -224,19 +252,19 @@ function App() {
                 <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] text-white" style={{fontStyle: 'italic'}}>
                   Tu organización genera datos cada día.
                   <br />
-                  <span className="text-amber" style={{fontStyle: 'italic'}}>¿Cuántos de ellos están transformando decisiones reales?</span>
+                  <span className="text-teal" style={{fontStyle: 'italic'}}>¿Cuántos de ellos están transformando decisiones reales?</span>
                 </h1>
                 <ul className="max-w-xl text-sm sm:text-base leading-relaxed text-slate-300 font-light space-y-1.5">
                   <li className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-amber text-base mt-0.5">check</span>
+                    <span className="material-symbols-outlined text-teal text-base mt-0.5">check</span>
                     <span>Sin pilotos eternos. Sin KPIs decorativos</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-amber text-base mt-0.5">check</span>
+                    <span className="material-symbols-outlined text-teal text-base mt-0.5">check</span>
                     <span>Encaje real en la práctica clínica desde el primer día</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-amber text-base mt-0.5">check</span>
+                    <span className="material-symbols-outlined text-teal text-base mt-0.5">check</span>
                     <span>Innovación sin riesgos. Solo trabajamos hacia resultados</span>
                   </li>
                 </ul>
@@ -268,7 +296,7 @@ function App() {
             <p className="text-lg text-slate-300 font-light leading-relaxed max-w-2xl">
               Reserva una sesión estratégica con nuestro equipo. Sin compromiso, sin letra pequeña — solo decisiones basadas en datos y experiencia real.
             </p>
-            <a href="mailto:pablo.hernandez@avisania.tech?subject=Agendar%20Reuni%C3%B3n%20-%20Avisania" className="inline-flex items-center gap-3 rounded-full bg-amber px-10 py-5 text-sm font-black uppercase tracking-[0.2em] text-navy shadow-[0_20px_40px_rgba(212,137,60,0.3)] hover:scale-105 transition-all duration-300">
+            <a href="mailto:pablo.hernandez@avisania.tech?subject=Agendar%20Reuni%C3%B3n%20-%20Avisania" className="inline-flex items-center gap-3 rounded-full bg-teal px-10 py-5 text-sm font-black uppercase tracking-[0.2em] text-navy shadow-[0_20px_40px_rgba(0,188,212,0.3)] hover:scale-105 transition-all duration-300">
               Agendar Reunión
               <span className="material-symbols-outlined text-navy text-lg">calendar_month</span>
             </a>
@@ -282,7 +310,7 @@ function App() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 text-center max-w-4xl mx-auto">
               <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Servicios</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Tres ejes de <span className="text-amber">transformación real</span></h2>
+              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Tres ejes de <span className="text-teal">transformación real</span></h2>
             </div>
 
             {/* Imagen equipo médico */}
@@ -301,17 +329,17 @@ function App() {
                   onClick={() => setActiveServicio(idx)}
                   className={`cursor-pointer bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 flex flex-col transition-all duration-500 ${
                     idx === activeServicio
-                      ? 'border-amber/40 shadow-[0_20px_60px_rgba(212,137,60,0.12)] scale-[1.02]'
-                      : 'border-white/10 hover:border-amber/20'
+                      ? 'border-teal/40 shadow-[0_20px_60px_rgba(0,188,212,0.12)] scale-[1.02]'
+                      : 'border-white/10 hover:border-teal/20'
                   }`}
                 >
                   <div className="flex items-center gap-4 mb-5">
                     <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
                       idx === activeServicio
-                        ? 'bg-amber/15 border border-amber/30 shadow-[0_8px_24px_rgba(212,137,60,0.15)]'
-                        : 'bg-amber/10 border border-amber/20'
+                        ? 'bg-teal/15 border border-teal/30 shadow-[0_8px_24px_rgba(0,188,212,0.15)]'
+                        : 'bg-teal/10 border border-teal/20'
                     }`}>
-                      <span className="material-symbols-outlined text-amber text-2xl">{s.icon}</span>
+                      <span className="material-symbols-outlined text-teal text-2xl">{s.icon}</span>
                     </div>
                     <h3 className="text-lg font-black text-white leading-snug flex-1">{s.title}</h3>
                   </div>
@@ -320,7 +348,7 @@ function App() {
                     <ul className="space-y-3">
                       {s.items.map((item, j) => (
                         <li key={j} className="flex items-start gap-3 group/item">
-                          <span className={`material-symbols-outlined text-lg mt-0.5 transition-colors duration-300 ${idx === activeServicio ? 'text-amber' : 'text-slate-500'}`}>{item.icon}</span>
+                          <span className={`material-symbols-outlined text-lg mt-0.5 transition-colors duration-300 ${idx === activeServicio ? 'text-teal' : 'text-slate-500'}`}>{item.icon}</span>
                           <span className="text-sm text-slate-300 font-light leading-relaxed">{item.text}</span>
                         </li>
                       ))}
@@ -338,7 +366,7 @@ function App() {
             {/* Dots indicator */}
             <div className="flex justify-center gap-2 mt-10 lg:hidden">
               {servicios.map((_, i) => (
-                <button key={i} onClick={() => setActiveServicio(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === activeServicio ? 'bg-amber w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
+                <button key={i} onClick={() => setActiveServicio(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === activeServicio ? 'bg-teal w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
               ))}
             </div>
           </div>
@@ -437,7 +465,7 @@ function App() {
             {/* Dots indicator */}
             <div className="flex justify-center gap-2 mt-10">
               {pilares.map((_, i) => (
-                <button key={i} onClick={() => handlePilarClick(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === activePilar ? 'bg-amber w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
+                <button key={i} onClick={() => handlePilarClick(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === activePilar ? 'bg-teal w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
               ))}
             </div>
           </div>
@@ -471,7 +499,7 @@ function App() {
                     </div>
                     <h3 className="text-xl font-black text-white mb-3">{b.title}</h3>
                     <p className="text-slate-400 font-light text-sm leading-relaxed mb-3 text-justify">{b.desc}</p>
-                    {b.highlight && <p className="text-sm text-amber font-semibold mb-1">{b.highlight}</p>}
+                    {b.highlight && <p className="text-sm text-teal font-semibold mb-1">{b.highlight}</p>}
                   </div>
                 ))}
               </div>
@@ -525,9 +553,32 @@ function App() {
             {/* Image + stats */}
             <div className="relative mt-16">
               <div className="flex justify-center mb-10 relative z-10">
-                <div className="relative">
+                <div className="relative w-full max-w-sm sm:max-w-xl md:max-w-3xl">
                   <div className="absolute -inset-4 md:-inset-8 bg-silver/10 rounded-full blur-3xl pointer-events-none"></div>
-                  <img src="/Equipo_m%C3%A9dico-cient%C3%ADfico.png" alt="Médico y paciente" className="relative rounded-2xl md:rounded-[2rem] w-full max-w-sm sm:max-w-xl md:max-w-3xl object-cover border border-white/10 shadow-2xl" />
+
+                  {/* Contenedor apilado: video encima, imagen debajo */}
+                  <div className="relative rounded-2xl md:rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+                    {/* Video — se reproduce una vez */}
+                    <video
+                      autoPlay
+                      muted
+                      playsInline
+                      onEnded={() => setDiferentialVideoEnded(true)}
+                      onError={() => setDiferentialVideoEnded(true)}
+                      className="block w-full transition-opacity duration-1000"
+                      style={{ opacity: diferentialVideoEnded ? 0 : 1 }}
+                    >
+                      <source src="/Video%20final.mp4" type="video/mp4" />
+                    </video>
+
+                    {/* Imagen de manos — superpuesta, aparece al terminar */}
+                    <img
+                      src="/medico%20-paciente.png"
+                      alt="Médico con paciente"
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+                      style={{ opacity: diferentialVideoEnded ? 1 : 0 }}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -568,7 +619,7 @@ function App() {
               Esto no es consultoría. Esto es experiencia validada trabajando por tus resultados.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full bg-amber px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-navy shadow-[0_20px_40px_rgba(212,137,60,0.3)] hover:scale-105 transition-all duration-300 text-center">
+              <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full bg-teal px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-navy shadow-[0_20px_40px_rgba(0,188,212,0.3)] hover:scale-105 transition-all duration-300 text-center">
                 Deja que los expertos trabajen por ti
               </a>
               <a href="mailto:pablo.hernandez@avisania.tech?subject=Agendar%20Reuni%C3%B3n%20-%20Avisania" className="rounded-full border-2 border-white/20 px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-white hover:border-silver hover:text-silver transition-all duration-300 text-center">
@@ -580,23 +631,7 @@ function App() {
 
       </main>
 
-      {/* ═══════════════════════════════════════════════════════════════
-          FOOTER
-      ═══════════════════════════════════════════════════════════════ */}
-      <footer className="border-t border-white/5 py-12 px-6 lg:px-20 bg-navy-dark">
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8">
-          <img src="/Logo%20plata.png" alt="Avisania Lab" className="h-8 w-auto" />
-          <p className="text-xs text-slate-600 font-light">© 2026 Avisania Lab. Medicina Predictiva de Alto Valor.</p>
-          <div className="flex gap-6">
-            <a className="text-slate-500 hover:text-silver transition-colors" href="#">
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-            </a>
-            <a className="text-slate-500 hover:text-silver transition-colors" href="#">
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

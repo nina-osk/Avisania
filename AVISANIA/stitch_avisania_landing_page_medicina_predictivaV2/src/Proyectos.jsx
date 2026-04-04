@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 /* Metric bar component */
 function MetricBar({ label, value, max = 1, suffix = '' }) {
@@ -27,8 +28,8 @@ function MetricBar({ label, value, max = 1, suffix = '' }) {
 
 /* Tag pill */
 function Tag({ children, color = 'silver' }) {
-  const cls = color === 'amber'
-    ? 'text-amber/90 bg-amber/10 border-amber/20'
+  const cls = color === 'teal'
+    ? 'text-teal/90 bg-teal/10 border-teal/20'
     : 'text-silver/80 bg-silver/10 border-silver/20';
   return <span className={`text-[10px] font-bold uppercase tracking-wider border rounded-full px-3 py-1 ${cls}`}>{children}</span>;
 }
@@ -43,17 +44,16 @@ function Proyectos() {
       {/* HEADER */}
       <header className="fixed top-0 z-50 w-full bg-navy/60 backdrop-blur-2xl px-6 lg:px-20 py-5">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <Link to="/"><img src="/Logo%20plata.png" alt="Avisania Lab" className="h-10 w-auto" /></Link>
+          <Link to="/"><img src="/Avisania%20Logo.png" alt="Avisania Lab" className="h-10 w-auto" /></Link>
           <nav className="hidden md:flex items-center gap-10">
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/#servicios">Servicios</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/#beneficios">Beneficios</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/#diferencial">Diferencial</Link>
             <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/quienes-somos">Quiénes somos</Link>
-            <Link className="text-sm font-medium text-slate-300 hover:text-silver transition-colors" to="/nosotros">Nosotros</Link>
             <Link className="text-sm font-medium text-silver font-bold transition-colors" to="/proyectos">Proyectos</Link>
           </nav>
-          <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full border-2 border-silver px-8 py-2.5 text-xs font-black uppercase tracking-widest text-silver hover:bg-silver hover:text-navy transition-all duration-300">
-            Contactar
+          <a href="https://wa.me/34630251862" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" className="inline-flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-300">
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </a>
         </div>
       </header>
@@ -76,9 +76,9 @@ function Proyectos() {
             <p className="text-base text-slate-400 font-light leading-relaxed max-w-4xl mx-auto mb-8">
               Desarrollamos modelos de inteligencia artificial para la predicción de eventos críticos en el entorno perioperatorio: desaturación intraoperatoria, inestabilidad hemodinámica y predicción de vía aérea difícil. Nuestros modelos se entrenan sobre datos clínicos reales de contexto hospitalario español bajo estándares de calidad de dato y seguridad GDPR-compliant. El objetivo es reducir la incertidumbre clínica en momentos de alta complejidad y dotar al anestesiólogo de soporte predictivo basado en evidencia.
             </p>
-            <div className="inline-flex items-center gap-3 bg-navy-dark/80 border border-amber/20 rounded-full px-6 py-3">
-              <span className="material-symbols-outlined text-amber text-xl">verified</span>
-              <p className="text-sm font-semibold text-amber">No hacemos promesas de IA. Publicamos métricas.</p>
+            <div className="inline-flex items-center gap-3 bg-navy-dark/80 border border-teal/20 rounded-full px-6 py-3">
+              <span className="material-symbols-outlined text-teal text-xl">verified</span>
+              <p className="text-sm font-semibold text-teal">No hacemos promesas de IA. Publicamos métricas.</p>
             </div>
           </div>
         </section>
@@ -89,11 +89,11 @@ function Proyectos() {
         <section className="py-24 px-6 lg:px-20 bg-navy-dark" id="medicina-predictiva">
           <div className="mx-auto max-w-6xl">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center">
-                <span className="material-symbols-outlined text-amber text-2xl">cardiology</span>
+              <div className="w-14 h-14 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
+                <span className="material-symbols-outlined text-teal text-2xl">cardiology</span>
               </div>
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-amber">Sección I</p>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-teal">Sección I</p>
                 <h2 className="text-3xl lg:text-4xl font-black text-white">Medicina Predictiva · Data Science</h2>
               </div>
             </div>
@@ -107,13 +107,13 @@ function Proyectos() {
             <div className="space-y-8">
 
               {/* Desaturación */}
-              <div className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-amber/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
+              <div className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-teal/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
                 <div className="flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-10">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <Tag color="amber">LSTM</Tag>
-                      <Tag color="amber">Deep Learning</Tag>
-                      <span className="text-3xl font-black text-amber">AUC 0.97</span>
+                      <Tag color="teal">LSTM</Tag>
+                      <Tag color="teal">Deep Learning</Tag>
+                      <span className="text-3xl font-black text-teal">AUC 0.97</span>
                     </div>
                     <h3 className="text-2xl font-black text-white mb-3">Predicción de Desaturación Perioperatoria</h3>
                     <p className="text-slate-300 font-light text-sm leading-relaxed mb-5">
@@ -131,13 +131,13 @@ function Proyectos() {
               </div>
 
               {/* Hemodinámica */}
-              <div className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-amber/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
+              <div className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-teal/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
                 <div className="flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-10">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <Tag color="amber">XGBoost</Tag>
-                      <Tag color="amber">SHAP</Tag>
-                      <span className="text-3xl font-black text-amber">AUC 0.98</span>
+                      <Tag color="teal">XGBoost</Tag>
+                      <Tag color="teal">SHAP</Tag>
+                      <span className="text-3xl font-black text-teal">AUC 0.98</span>
                     </div>
                     <h3 className="text-2xl font-black text-white mb-3">Predicción de Inestabilidad Hemodinámica</h3>
                     <p className="text-slate-300 font-light text-sm leading-relaxed mb-5">
@@ -155,17 +155,17 @@ function Proyectos() {
               </div>
 
               {/* ECO Air Coach */}
-              <div className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-amber/20 hover:border-amber/40 p-8 lg:p-10 transition-all duration-500 professional-shadow relative overflow-hidden">
-                <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber/10 border border-amber/20 rounded-full px-4 py-1.5">
-                  <span className="material-symbols-outlined text-amber text-sm">emoji_events</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber">Florencia 2025</span>
+              <div className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-teal/20 hover:border-teal/40 p-8 lg:p-10 transition-all duration-500 professional-shadow relative overflow-hidden">
+                <div className="absolute top-4 right-4 flex items-center gap-2 bg-teal/10 border border-teal/20 rounded-full px-4 py-1.5">
+                  <span className="material-symbols-outlined text-teal text-sm">emoji_events</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-teal">Florencia 2025</span>
                 </div>
                 <div className="flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-10 mt-6 lg:mt-0">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <Tag color="amber">XGBoost + Ecografía</Tag>
-                      <Tag color="amber">CDSS</Tag>
-                      <span className="text-3xl font-black text-amber">AUC 0.95</span>
+                      <Tag color="teal">XGBoost + Ecografía</Tag>
+                      <Tag color="teal">CDSS</Tag>
+                      <span className="text-3xl font-black text-teal">AUC 0.95</span>
                     </div>
                     <h3 className="text-2xl font-black text-white mb-3">ECO Air Coach CDSS — Predicción de Vía Aérea Difícil</h3>
                     <p className="text-slate-300 font-light text-sm leading-relaxed mb-5">
@@ -174,7 +174,7 @@ function Proyectos() {
                     <div className="flex flex-wrap gap-2">
                       <Tag>Vía aérea</Tag>
                       <Tag>Ultrasonido estructurado</Tag>
-                      <Tag color="amber">Reconocimiento internacional</Tag>
+                      <Tag color="teal">Reconocimiento internacional</Tag>
                     </div>
                   </div>
                   <div className="lg:w-56 flex-shrink-0">
@@ -248,7 +248,7 @@ function Proyectos() {
                 className={`cursor-pointer bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 transition-all duration-500 professional-shadow ${expandedCard === 'hecktor' ? 'border-silver/40 shadow-[0_20px_60px_rgba(168,184,200,0.12)]' : 'border-white/10 hover:border-silver/30'}`}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <Tag color="amber">MICCAI 2025</Tag>
+                  <Tag color="teal">MICCAI 2025</Tag>
                   <span className={`material-symbols-outlined text-slate-500 text-sm transition-transform duration-300 ${expandedCard === 'hecktor' ? 'rotate-180' : ''}`}>expand_more</span>
                 </div>
                 <h3 className="text-xl font-black text-white mb-2">HECKTOR25 — Cáncer de Cabeza y Cuello (PET/CT)</h3>
@@ -299,7 +299,7 @@ function Proyectos() {
                 className={`cursor-pointer bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 transition-all duration-500 professional-shadow ${expandedCard === 'trackrad' ? 'border-silver/40 shadow-[0_20px_60px_rgba(168,184,200,0.12)]' : 'border-white/10 hover:border-silver/30'}`}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <Tag color="amber">MICCAI 2025</Tag>
+                  <Tag color="teal">MICCAI 2025</Tag>
                   <span className={`material-symbols-outlined text-slate-500 text-sm transition-transform duration-300 ${expandedCard === 'trackrad' ? 'rotate-180' : ''}`}>expand_more</span>
                 </div>
                 <h3 className="text-xl font-black text-white mb-2">TrackRAD 2025 — Seguimiento Tumoral en Tiempo Real (Cine-RM)</h3>
@@ -322,9 +322,9 @@ function Proyectos() {
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <Tag color="amber">MICCAI 2025</Tag>
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber/80 bg-amber/10 border border-amber/20 rounded-full px-3 py-1">
-                      <span className="material-symbols-outlined text-amber text-xs">schedule</span>
+                    <Tag color="teal">MICCAI 2025</Tag>
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-teal/80 bg-teal/10 border border-teal/20 rounded-full px-3 py-1">
+                      <span className="material-symbols-outlined text-teal text-xs">schedule</span>
                       En curso
                     </span>
                   </div>
@@ -359,11 +359,11 @@ function Proyectos() {
         <section className="py-24 px-6 lg:px-20 bg-navy-dark" id="ensayos-clinicos">
           <div className="mx-auto max-w-6xl">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center">
-                <span className="material-symbols-outlined text-amber text-2xl">biotech</span>
+              <div className="w-14 h-14 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
+                <span className="material-symbols-outlined text-teal text-2xl">biotech</span>
               </div>
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-amber">Sección III</p>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-teal">Sección III</p>
                 <h2 className="text-3xl lg:text-4xl font-black text-white">Ensayos Clínicos y Prototipos Funcionales</h2>
               </div>
             </div>
@@ -410,14 +410,14 @@ function Proyectos() {
               </div>
 
               {/* GT Hemodinámica */}
-              <div className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-amber/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
+              <div className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-teal/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-amber text-xl">monitor_heart</span>
+                  <div className="w-12 h-12 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-teal text-xl">monitor_heart</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-black text-white">GT Hemodinámica — Validación Multicéntrica Internacional</h3>
-                    <p className="text-xs text-amber font-semibold">Activo · Colaboración con Harvard Medical School y Sociedades científicas españolas</p>
+                    <p className="text-xs text-teal font-semibold">Activo · Colaboración con Harvard Medical School y Sociedades científicas españolas</p>
                   </div>
                 </div>
                 <p className="text-slate-300 font-light text-sm leading-relaxed">
@@ -426,14 +426,14 @@ function Proyectos() {
               </div>
 
               {/* GT VAD-IA */}
-              <div className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-amber/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
+              <div className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-teal/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-amber text-xl">face</span>
+                  <div className="w-12 h-12 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-teal text-xl">face</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-black text-white">GT VAD-IA — Dataset Nacional de Vía Aérea Difícil por Imagen</h3>
-                    <p className="text-xs text-amber font-semibold">Activo · Sociedades científicas españolas</p>
+                    <p className="text-xs text-teal font-semibold">Activo · Sociedades científicas españolas</p>
                   </div>
                 </div>
                 <p className="text-slate-300 font-light text-sm leading-relaxed">
@@ -442,14 +442,14 @@ function Proyectos() {
               </div>
 
               {/* VÍA RICA Digital */}
-              <div className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-amber/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
+              <div className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-white/10 hover:border-teal/30 p-8 lg:p-10 transition-all duration-500 professional-shadow">
                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-amber/10 border border-amber/20 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-amber text-xl">local_hospital</span>
+                  <div className="w-12 h-12 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-teal text-xl">local_hospital</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-black text-white">VÍA RICA Digital — Plataforma ERAS Perioperatoria</h3>
-                    <p className="text-xs text-amber font-semibold">Activo · H.U. Puerta del Mar · Interés declarado de Fresenius</p>
+                    <p className="text-xs text-teal font-semibold">Activo · H.U. Puerta del Mar · Interés declarado de Fresenius</p>
                   </div>
                 </div>
                 <p className="text-slate-300 font-light text-sm leading-relaxed">
@@ -532,21 +532,7 @@ function Proyectos() {
 
       </main>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/5 py-12 px-6 lg:px-20 bg-navy-dark">
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8">
-          <Link to="/"><img src="/Logo%20plata.png" alt="Avisania Lab" className="h-8 w-auto" /></Link>
-          <p className="text-xs text-slate-600 font-light">© 2026 Avisania Lab. Medicina Predictiva de Alto Valor.</p>
-          <div className="flex gap-6">
-            <a className="text-slate-500 hover:text-silver transition-colors" href="#">
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-            </a>
-            <a className="text-slate-500 hover:text-silver transition-colors" href="#">
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

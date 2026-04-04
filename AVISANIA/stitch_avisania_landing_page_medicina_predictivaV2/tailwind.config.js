@@ -9,7 +9,7 @@ export default {
     extend: {
       colors: {
         "silver": "#A8B8C8",
-        "amber": "#D4893C",
+        "teal": "#00BCD4",
         "navy": {
           DEFAULT: "#071826",
           dark: "#040E18",
@@ -17,7 +17,8 @@ export default {
         }
       },
       fontFamily: {
-        "display": ["Public Sans", "sans-serif"]
+        "display": ["Space Grotesk", "sans-serif"],
+        "serif": ["Cormorant Garamond", "Georgia", "serif"],
       },
       borderRadius: {
         "button": "9999px",
