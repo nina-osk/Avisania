@@ -111,21 +111,49 @@ function QuienesSomos() {
       <main className="flex-1 pt-24">
 
         {/* ═══════════════════════════════════════════════════════════
-            HERO
+            HERO — LO QUE SOMOS
         ═══════════════════════════════════════════════════════════ */}
         <section className="relative py-24 px-6 lg:px-20 overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-silver/5 rounded-full blur-[140px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal/5 rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
-          <div ref={heroRef} className={`mx-auto max-w-4xl text-center ${reveal(heroVis)}`}>
+          <div ref={heroRef} className={`mx-auto max-w-4xl ${reveal(heroVis)}`}>
+
+            {/* Label */}
             <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-4">Quiénes somos</p>
-            <h1 className="text-4xl lg:text-6xl font-black text-white leading-tight mb-8" style={{ fontStyle: 'italic' }}>
-              I+D+i en medicina predictiva{' '}
-              <span className="text-silver" style={{ fontStyle: 'italic' }}>desde la práctica clínica</span>
+
+            {/* Titular */}
+            <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight mb-6" style={{ fontStyle: 'italic' }}>
+              Lo que somos.
             </h1>
-            <p className="text-lg lg:text-xl text-slate-300 font-light leading-relaxed max-w-3xl mx-auto">
-              Somos un estudio de I+D+i en medicina predictiva fundado desde la práctica clínica, con el objetivo de dotar a profesionales sanitarios y gestores de herramientas que agilicen flujos de trabajo, optimicen resultados clínicos y faciliten la toma de decisiones en entornos de alta complejidad.
+
+            {/* Tagline destacada */}
+            <p className="text-xl lg:text-2xl text-teal font-semibold leading-snug mb-12 max-w-3xl border-l-2 border-teal/40 pl-5">
+              Multiplicamos valor optimizando las decisiones entorno a la medicina predictiva y diagnóstico por imagen.
             </p>
+
+            {/* Separador */}
+            <div className="w-12 h-px bg-gradient-to-r from-teal to-transparent mb-10" />
+
+            {/* Párrafos */}
+            <div className="space-y-6 max-w-3xl">
+              <p className="text-base lg:text-lg text-slate-300 font-light leading-relaxed">
+                Somos un estudio de I+D+i en medicina predictiva fundado desde la práctica clínica, con el objetivo de dotar a profesionales sanitarios y gestores de herramientas que agilicen flujos de trabajo, optimicen resultados clínicos y faciliten la toma de decisiones en entornos de alta complejidad.
+              </p>
+              <p className="text-base lg:text-lg text-slate-300 font-light leading-relaxed">
+                Nuestro propósito es transformar la práctica asistencial mediante soluciones tecnológicas que reduzcan la incertidumbre clínica en momentos críticos, llevando la medicina de precisión desde los grandes centros a cualquier hospital.
+              </p>
+              <p className="text-base lg:text-lg text-slate-300 font-light leading-relaxed">
+                Actualmente, en Avisania Lab desarrollamos modelos predictivos avanzados de inteligencia artificial aplicados a dos áreas: perioperatorio y oncología. Esto incluye predicción de eventos críticos —como desaturación perioperatoria, inestabilidad hemodinámica o vía aérea difícil—, modelos de diagnóstico por imagen para segmentación tumoral y estructuras anatómicas, y tratamiento de datos críticos bajo rigurosos estándares de calidad y de ciberseguridad.
+              </p>
+              <p className="text-base lg:text-lg text-slate-300 font-light leading-relaxed">
+                Colaboramos con hospitales universitarios, sociedades científicas e industria, articulando un ecosistema de I+D+i con enfoque en la escalabilidad.
+              </p>
+              <p className="text-base lg:text-lg text-slate-400 font-light leading-relaxed italic">
+                El proyecto combina rigor clínico, evidencia científica y desarrollo tecnológico para transformar la práctica médica, haciendo accesibles herramientas predictivas de alto nivel como nuevo estándar asistencial.
+              </p>
+            </div>
+
           </div>
         </section>
 
@@ -136,14 +164,14 @@ function QuienesSomos() {
           <div ref={p1Ref} className={`mx-auto max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${reveal(p1Vis)}`}>
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-teal text-2xl">target</span>
+                <div className="w-12 h-12 rounded-2xl bg-orange/10 border border-orange/20 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-orange text-2xl">target</span>
                 </div>
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-teal">Nuestro propósito</p>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-orange">Nuestro propósito</p>
               </div>
               <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-6" style={{ fontStyle: 'italic' }}>
                 Reducir la incertidumbre clínica{' '}
-                <span className="text-teal" style={{ fontStyle: 'italic' }}>en momentos críticos</span>
+                <span className="text-orange" style={{ fontStyle: 'italic' }}>en momentos críticos</span>
               </h2>
               <p className="text-slate-300 font-light text-base lg:text-lg leading-relaxed">
                 Nuestro propósito es transformar la práctica asistencial mediante soluciones tecnológicas que reduzcan la incertidumbre clínica en momentos críticos, llevando la medicina de precisión desde los grandes centros a cualquier hospital.

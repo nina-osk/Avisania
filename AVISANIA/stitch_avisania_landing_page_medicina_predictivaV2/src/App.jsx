@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 import Footer from './Footer';
 
 function App() {
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const [activeBenefit, setActiveBenefit] = useState(0);
   const [activePilar, setActivePilar] = useState(0);
   const [activeServicio, setActiveServicio] = useState(0);
   const [mobileMenu, setMobileMenu] = useState(false);
   const pilarTimer = useRef(null);
   const serviciosRef = useRef(null);
-  const benefitTimer = useRef(null);
 
   // Hero: video fades out on scroll, content fades in
   const heroRef = useRef(null);
@@ -62,7 +59,7 @@ function App() {
     {
       icon: 'science',
       img: '/Exoeriencia.png',
-      title: 'Experiencia',
+      title: 'Expertice',
       subtitle: 'El conocimiento sin aplicación no es expertise. Es archivo.',
       desc: 'Especialización clínica, data science aplicado y expertise regulatorio —MDR, AI Act, GDPR— para prescribir soluciones con rigor métrico no negociable. Know-how contrastado con referentes internacionales, aplicado a tu realidad.',
       points: []
@@ -79,31 +76,43 @@ function App() {
 
   const servicios = [
     {
-      icon: 'science',
+      icon: 'genetics',
+      gradient: 'from-teal/20 to-sky/10',
+      border: 'border-teal/40',
+      glow: 'rgba(0,188,212,0.2)',
+      color: 'text-teal',
       title: 'Promoción y Coordinación de proyectos I+D+i',
       items: [
-        { icon: 'analytics', text: 'Ciencia de datos en medicina predictiva oncológica, hemodinámica y perioperatoria.' },
-        { icon: 'radiology', text: 'Aprendizaje & diagnóstico por imagen: autosegmentación y detección de cáncer.' },
-        { icon: 'biotech', text: 'Desarrollo de ensayos clínicos y prototipos funcionales: medicina predictiva de precisión y software médico.' },
+        { icon: 'query_stats', text: 'Ciencia de datos en medicina predictiva oncológica, hemodinámica y perioperatoria.' },
+        { icon: 'ecg', text: 'Aprendizaje & diagnóstico por imagen: autosegmentación y detección de cáncer.' },
+        { icon: 'experiment', text: 'Desarrollo de ensayos clínicos y prototipos funcionales: medicina predictiva de precisión y software médico.' },
       ],
     },
     {
-      icon: 'database',
+      icon: 'ecg',
+      gradient: 'from-sky/20 to-teal/10',
+      border: 'border-sky/40',
+      glow: 'rgba(56,189,248,0.2)',
+      color: 'text-sky',
       title: 'Transformación útil del dato crítico',
       items: [
-        { icon: 'assignment', text: 'Soluciones administrativas.' },
-        { icon: 'hub', text: 'Herramientas de investigación y gestión de dato (SMART-mol).' },
-        { icon: 'shield_lock', text: 'Ciberseguridad e interoperabilidad.' },
-        { icon: 'monitoring', text: 'MEDINT.' },
+        { icon: 'clinical_notes', text: 'Soluciones administrativas.' },
+        { icon: 'account_tree', text: 'Herramientas de investigación y gestión de dato (SMART-mol).' },
+        { icon: 'encrypted', text: 'Ciberseguridad e interoperabilidad.' },
+        { icon: 'vital_signs', text: 'MEDINT.' },
       ],
     },
     {
-      icon: 'groups',
+      icon: 'neurology',
+      gradient: 'from-orange/15 to-orange/5',
+      border: 'border-orange/40',
+      glow: 'rgba(249,115,22,0.15)',
+      color: 'text-orange',
       title: 'Talento: consultoría y asesoría',
       items: [
-        { icon: 'precision_manufacturing', text: 'Digitalización e innovación en anestesiología, oncología y perioperatorios.' },
-        { icon: 'sync_alt', text: 'Transferencia tecnológica en tecnología sanitaria de precisión.' },
-        { icon: 'account_balance', text: 'Fondos públicos para desarrollo de estudios y desarrollo multicéntricos.' },
+        { icon: 'stethoscope', text: 'Digitalización e innovación en anestesiología, oncología y perioperatorios.' },
+        { icon: 'lab_research', text: 'Transferencia tecnológica en tecnología sanitaria de precisión.' },
+        { icon: 'verified_user', text: 'Fondos públicos para desarrollo de estudios y desarrollo multicéntricos.' },
       ],
     },
   ];
@@ -133,29 +142,91 @@ function App() {
 
   const handlePilarClick = (idx) => { setActivePilar(idx); startPilarTimer(); };
 
-  const benefits = [
-    { icon: 'encrypted', title: 'Seguridad en el manejo de datos médicos', desc: 'Trabajas con datos médicos de forma más protegida, ordenada y confiable.', highlight: 'No es el cómo, es el quién.', sub: 'Igual que un paciente no elige la técnica, elige al cirujano.' },
-    { icon: 'workspace_premium', title: 'Validación y respaldo serio', desc: 'No es una solución improvisada. Tienes una base sólida para avanzar con confianza.', highlight: 'No es solo nuestra base: es nuestra posición como expertos.' },
-    { icon: 'gavel', title: 'Soluciones defendibles frente a terceros', desc: 'Puedes sostener cada decisión con argumentos sólidos, no con intuición.' },
-    { icon: 'trending_up', title: 'Investigación aplicada a resultados', desc: 'No vendemos investigación teórica. Transformamos tus datos en resultados, generando ROI y evolución real.' },
-    { icon: 'psychology', title: 'Mejora en la toma de decisiones', desc: 'Te llevamos a lo más difícil y valioso: decidir con datos, no con suposiciones.' },
-    { icon: 'security', title: 'Eliminación de la sensación de riesgo', desc: 'Innovar deja de sentirse como un salto al vacío.' },
-    { icon: 'shield_with_heart', title: 'Tranquilidad profesional', desc: 'Avanzas con control, claridad y menor exposición. Evolucionas con respaldo.' },
+  const [activeValueCard, setActiveValueCard] = useState(0);
+
+  const valueCards = [
+    {
+      icon: 'trending_up',
+      color: 'text-orange',
+      borderColor: 'border-orange/40',
+      glow: 'rgba(249,115,22,0.18)',
+      bg: 'bg-orange/10',
+      iconGlow: 'rgba(249,115,22,0.3)',
+      accent: '#F97316',
+      label: 'Genera rentabilidad con tus datos',
+      statement: 'Toma de decisiones basadas en dato.',
+      desc: 'Cada acción sostenida por evidencia real, métricas validadas y criterio clínico experto. Sin suposiciones. Sin improvvisación.',
+    },
+    {
+      icon: 'ecg',
+      color: 'text-sky',
+      borderColor: 'border-sky/40',
+      glow: 'rgba(56,189,248,0.18)',
+      bg: 'bg-sky/10',
+      iconGlow: 'rgba(56,189,248,0.3)',
+      accent: '#38BDF8',
+      label: 'Acierta en tus diagnósticos de prevención',
+      statement: 'Resultados medibles y encaje real en la práctica clínica.',
+      desc: 'Sin pilotos eternos. Sin KPIs decorativos. Solo impacto directo en tu realidad clínica desde el primer día.',
+    },
+    {
+      icon: 'rocket_launch',
+      color: 'text-teal',
+      borderColor: 'border-teal/40',
+      glow: 'rgba(0,188,212,0.18)',
+      bg: 'bg-teal/10',
+      iconGlow: 'rgba(0,188,212,0.3)',
+      accent: '#00BCD4',
+      label: 'Con impacto real',
+      statement: 'Causa impacto con tus proyectos.',
+      desc: 'Innovación con propósito, alineada con los estándares internacionales más exigentes y la realidad clínica española.',
+    },
+    {
+      icon: 'auto_graph',
+      color: 'text-silver',
+      borderColor: 'border-silver/40',
+      glow: 'rgba(168,184,200,0.14)',
+      bg: 'bg-silver/10',
+      iconGlow: 'rgba(168,184,200,0.25)',
+      accent: '#A8B8C8',
+      label: 'Crecimiento sostenible',
+      statement: 'Evolución guiada por resultados, decisiones basadas en datos.',
+      desc: 'Un modelo de crecimiento diseñado para durar, con base sólida, criterio clínico y rigor métrico no negociable.',
+    },
   ];
 
-  const totalPages = Math.ceil(benefits.length / 2);
-  const visibleBenefits = benefits.slice(carouselIndex * 2, carouselIndex * 2 + 2);
-
-  const startBenefitTimer = () => {
-    clearInterval(benefitTimer.current);
-    benefitTimer.current = setInterval(() => {
-      setCarouselIndex(p => (p + 1) % totalPages);
-    }, 5000);
-  };
-
-  useEffect(() => { startBenefitTimer(); return () => clearInterval(benefitTimer.current); }, [carouselIndex]);
-
-  const goToPage = (page) => { setCarouselIndex(page); startBenefitTimer(); };
+  const benefits = [
+    {
+      icon: 'query_stats',
+      color: 'text-sky',
+      border: 'border-sky/30',
+      bg: 'bg-sky/10',
+      glow: 'rgba(56,189,248,0.15)',
+      title: 'Data driven decisions',
+      subtitle: 'Decisiones basadas en datos',
+      desc: 'Te llevamos a lo más difícil y valioso: decidir con datos, no con suposiciones. Cada acción sostenida por evidencia real, métricas validadas y criterio clínico experto.',
+    },
+    {
+      icon: 'encrypted',
+      color: 'text-teal',
+      border: 'border-teal/30',
+      bg: 'bg-teal/10',
+      glow: 'rgba(0,188,212,0.15)',
+      title: 'Seguridad en el manejo de datos',
+      subtitle: 'Protección sin compromisos',
+      desc: 'Trabajas con datos médicos de forma más protegida, ordenada y confiable. MDR, AI Act y GDPR no son obstáculos — son el estándar desde el que operamos.',
+    },
+    {
+      icon: 'verified',
+      color: 'text-orange',
+      border: 'border-orange/30',
+      bg: 'bg-orange/10',
+      glow: 'rgba(249,115,22,0.15)',
+      title: 'Validación y respaldo',
+      subtitle: 'Base sólida, sin improvisación',
+      desc: 'No es una solución improvisada. Tienes una base sólida para avanzar con confianza. Cada decisión sostenible frente a cualquier tercero — regulador, inversor o comité clínico.',
+    },
+  ];
 
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
@@ -252,19 +323,19 @@ function App() {
                 <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] text-white" style={{fontStyle: 'italic'}}>
                   Tu organización genera datos cada día.
                   <br />
-                  <span className="text-teal" style={{fontStyle: 'italic'}}>¿Cuántos de ellos están transformando decisiones reales?</span>
+                  <span className="text-sky" style={{fontStyle: 'italic'}}>¿Cuántos de ellos están transformando decisiones reales?</span>
                 </h1>
                 <ul className="max-w-xl text-sm sm:text-base leading-relaxed text-slate-300 font-light space-y-1.5">
                   <li className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-teal text-base mt-0.5">check</span>
+                    <span className="material-symbols-outlined text-orange text-base mt-0.5">check</span>
                     <span>Sin pilotos eternos. Sin KPIs decorativos</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-teal text-base mt-0.5">check</span>
+                    <span className="material-symbols-outlined text-orange text-base mt-0.5">check</span>
                     <span>Encaje real en la práctica clínica desde el primer día</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-teal text-base mt-0.5">check</span>
+                    <span className="material-symbols-outlined text-orange text-base mt-0.5">check</span>
                     <span>Innovación sin riesgos. Solo trabajamos hacia resultados</span>
                   </li>
                 </ul>
@@ -274,6 +345,51 @@ function App() {
                     <span className="material-symbols-outlined text-silver text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
                   </a>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════════
+            SECTION — DECLARACIÓN IDENTIDAD
+        ═══════════════════════════════════════════════════════════════ */}
+        <section className="relative py-24 px-6 lg:px-20 overflow-hidden bg-navy-dark">
+          {/* Línea diagonal decorativa */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -left-20 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-teal/30 to-transparent rotate-[8deg] origin-top" />
+            <div className="absolute right-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-silver/10 to-transparent" />
+            <div className="absolute top-1/2 -translate-y-1/2 -left-40 w-[500px] h-[500px] bg-teal/5 rounded-full blur-[120px]" />
+          </div>
+
+          <div className="relative mx-auto max-w-6xl">
+            {/* Label */}
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-sky mb-8">Avisania Lab</p>
+
+            {/* Texto principal partido en dos pesos visuales */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-20 items-center">
+              <div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.05] text-white" style={{ fontStyle: 'italic' }}>
+                  Un estudio especializado de{' '}
+                  <span className="text-sky" style={{ fontStyle: 'italic' }}>I+D+i</span>{' '}
+                  en la integración entre la{' '}
+                  <span className="relative inline-block">
+                    <span className="text-silver" style={{ fontStyle: 'italic' }}>medicina predictiva</span>
+                    <span className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-sky/60 to-transparent" />
+                  </span>{' '}
+                  y la tecnología.
+                </h2>
+                <p className="mt-8 text-lg lg:text-xl text-slate-400 font-light leading-relaxed max-w-2xl">
+                  Que optimiza y facilita la toma de decisiones seguras en entornos complejos.
+                </p>
+              </div>
+
+              {/* Bloque lateral con acento visual */}
+              <div className="hidden lg:flex flex-col items-center gap-4">
+                <div className="w-px h-24 bg-gradient-to-b from-transparent via-sky/40 to-transparent" />
+                <div className="w-14 h-14 rounded-2xl border border-sky/30 bg-sky/5 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-sky text-2xl">biotech</span>
+                </div>
+                <div className="w-px h-24 bg-gradient-to-b from-sky/40 via-teal/20 to-transparent" />
               </div>
             </div>
           </div>
@@ -291,14 +407,14 @@ function App() {
           <div className="relative z-10 mx-auto max-w-4xl text-center flex flex-col items-center gap-8">
             <p className="text-xs font-black uppercase tracking-[0.4em] text-silver">Tu próximo paso</p>
             <h2 className="text-4xl lg:text-6xl font-black text-white leading-tight" style={{fontStyle: 'italic'}}>
-              Agenda{' '}<span className="text-silver" style={{fontStyle: 'italic'}}>con nosotros</span>
+              <span className="text-orange" style={{fontStyle: 'italic'}}>Agenda</span>{' '}<span className="text-silver" style={{fontStyle: 'italic'}}>con nosotros</span>
             </h2>
             <p className="text-lg text-slate-300 font-light leading-relaxed max-w-2xl">
               Reserva una sesión estratégica con nuestro equipo. Sin compromiso, sin letra pequeña — solo decisiones basadas en datos y experiencia real.
             </p>
-            <a href="mailto:pablo.hernandez@avisania.tech?subject=Agendar%20Reuni%C3%B3n%20-%20Avisania" className="inline-flex items-center gap-3 rounded-full bg-teal px-10 py-5 text-sm font-black uppercase tracking-[0.2em] text-navy shadow-[0_20px_40px_rgba(0,188,212,0.3)] hover:scale-105 transition-all duration-300">
+            <a href="mailto:pablo.hernandez@avisania.tech?subject=Agendar%20Reuni%C3%B3n%20-%20Avisania" className="inline-flex items-center gap-3 rounded-full bg-orange px-10 py-5 text-sm font-black uppercase tracking-[0.2em] text-white shadow-[0_20px_40px_rgba(249,115,22,0.35)] hover:scale-105 hover:shadow-[0_24px_50px_rgba(249,115,22,0.45)] transition-all duration-300">
               Agendar Reunión
-              <span className="material-symbols-outlined text-navy text-lg">calendar_month</span>
+              <span className="material-symbols-outlined text-white text-lg">calendar_month</span>
             </a>
           </div>
         </section>
@@ -310,7 +426,7 @@ function App() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 text-center max-w-4xl mx-auto">
               <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Servicios</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Tres ejes de <span className="text-teal">transformación real</span></h2>
+              <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">Tres ejes de <span className="text-sky">transformación real</span></h2>
             </div>
 
             {/* Imagen equipo médico */}
@@ -329,26 +445,44 @@ function App() {
                   onClick={() => setActiveServicio(idx)}
                   className={`cursor-pointer bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 flex flex-col transition-all duration-500 ${
                     idx === activeServicio
-                      ? 'border-teal/40 shadow-[0_20px_60px_rgba(0,188,212,0.12)] scale-[1.02]'
-                      : 'border-white/10 hover:border-teal/20'
+                      ? `${s.border} scale-[1.02]`
+                      : 'border-white/10 hover:border-white/20'
                   }`}
+                  style={idx === activeServicio ? { boxShadow: `0 20px 60px ${s.glow}` } : {}}
                 >
-                  <div className="flex items-center gap-4 mb-5">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                  {/* Icono grande — protagonista de la tarjeta */}
+                  <div className="mb-6">
+                    <div className={`relative w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-500 bg-gradient-to-br ${
                       idx === activeServicio
-                        ? 'bg-teal/15 border border-teal/30 shadow-[0_8px_24px_rgba(0,188,212,0.15)]'
-                        : 'bg-teal/10 border border-teal/20'
-                    }`}>
-                      <span className="material-symbols-outlined text-teal text-2xl">{s.icon}</span>
+                        ? `${s.gradient} border-2 ${s.border}`
+                        : 'bg-white/5 border border-white/10'
+                    }`}
+                    style={idx === activeServicio ? { boxShadow: `0 0 40px ${s.glow}` } : {}}>
+                      {/* Resplandor interior */}
+                      {idx === activeServicio && (
+                        <div className="absolute inset-0 rounded-3xl opacity-30 bg-gradient-to-br from-white/20 to-transparent" />
+                      )}
+                      <span
+                        className={`material-symbols-outlined relative transition-all duration-500 ${
+                          idx === activeServicio ? `${s.color} text-5xl` : 'text-slate-500 text-4xl'
+                        }`}
+                        style={{ fontVariationSettings: "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48" }}
+                      >
+                        {s.icon}
+                      </span>
                     </div>
-                    <h3 className="text-lg font-black text-white leading-snug flex-1">{s.title}</h3>
                   </div>
+
+                  <h3 className="text-lg font-black text-white leading-snug mb-5">{s.title}</h3>
 
                   <div className={`overflow-hidden transition-all duration-500 ${idx === activeServicio ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-[500px] lg:opacity-60'}`}>
                     <ul className="space-y-3">
                       {s.items.map((item, j) => (
-                        <li key={j} className="flex items-start gap-3 group/item">
-                          <span className={`material-symbols-outlined text-lg mt-0.5 transition-colors duration-300 ${idx === activeServicio ? 'text-teal' : 'text-slate-500'}`}>{item.icon}</span>
+                        <li key={j} className="flex items-start gap-3">
+                          <span
+                            className={`material-symbols-outlined text-xl mt-0.5 flex-shrink-0 transition-colors duration-300 ${idx === activeServicio ? s.color : 'text-slate-600'}`}
+                            style={{ fontVariationSettings: "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24" }}
+                          >{item.icon}</span>
                           <span className="text-sm text-slate-300 font-light leading-relaxed">{item.text}</span>
                         </li>
                       ))}
@@ -472,47 +606,161 @@ function App() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════
-            SECTION 3 — BENEFICIOS (tarjetas con rotación)
+            SECTION 3 — BENEFICIOS
         ═══════════════════════════════════════════════════════════════ */}
         <section className="py-28 px-6 lg:px-20 bg-navy-dark relative" id="beneficios">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-silver/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
           <div className="mx-auto max-w-7xl relative">
-            <div className="mb-20 text-center">
+            <div className="mb-16 text-center">
               <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-3">Lo que obtienes con nosotros</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">Beneficios concretos,<br/><span className="text-silver">no promesas abstractas</span></h2>
+              <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">
+                Beneficios concretos,<br/>
+                <span className="text-orange">no promesas abstractas</span>
+              </h2>
             </div>
 
-            {/* Cards grid — 2 tarjetas con flechas laterales */}
-            <div className="relative max-w-5xl mx-auto">
-              <button onClick={() => goToPage(Math.max(0, carouselIndex - 1))} disabled={carouselIndex === 0} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-14 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-silver hover:text-silver disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg">
-                <span className="material-symbols-outlined text-lg">arrow_back</span>
-              </button>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-700">
-                {visibleBenefits.map((b, i) => (
-                  <div
-                    key={carouselIndex * 2 + i}
-                    className="bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border border-silver/30 p-8 flex flex-col items-center text-center shadow-[0_20px_60px_rgba(168,184,200,0.1)] animate-[fadeIn_0.5s_ease-in-out]"
-                  >
-                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-silver/20 to-silver/5 border border-silver/20 flex items-center justify-center mb-5 shadow-[0_15px_40px_rgba(168,184,200,0.15)]">
-                      <span className="material-symbols-outlined text-silver" style={{fontSize:'2.5rem'}}>{b.icon}</span>
-                    </div>
-                    <h3 className="text-xl font-black text-white mb-3">{b.title}</h3>
-                    <p className="text-slate-400 font-light text-sm leading-relaxed mb-3 text-justify">{b.desc}</p>
-                    {b.highlight && <p className="text-sm text-teal font-semibold mb-1">{b.highlight}</p>}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {benefits.map((b, i) => (
+                <div
+                  key={i}
+                  className="group bg-gradient-to-b from-navy-light to-navy rounded-[2rem] border p-8 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2"
+                  style={{ borderColor: 'rgba(255,255,255,0.08)', boxShadow: 'none' }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 20px 60px ${b.glow}`; e.currentTarget.style.borderColor = b.border.replace('border-','').replace('/30',''); }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
+                >
+                  <div className={`w-20 h-20 rounded-3xl ${b.bg} border ${b.border} flex items-center justify-center mb-6`}
+                    style={{ boxShadow: `0 0 30px ${b.glow}` }}>
+                    <span
+                      className={`material-symbols-outlined ${b.color}`}
+                      style={{ fontSize: '2.5rem', fontVariationSettings: "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48" }}
+                    >{b.icon}</span>
                   </div>
-                ))}
-              </div>
+                  <h3 className={`text-xl font-black mb-1 ${b.color}`}>{b.title}</h3>
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">{b.subtitle}</p>
+                  <p className="text-slate-400 font-light text-sm leading-relaxed">{b.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-              <button onClick={() => goToPage(Math.min(totalPages - 1, carouselIndex + 1))} disabled={carouselIndex >= totalPages - 1} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-14 z-20 w-10 h-10 rounded-full border border-white/20 bg-navy/80 backdrop-blur-sm flex items-center justify-center text-white hover:border-silver hover:text-silver disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg">
-                <span className="material-symbols-outlined text-lg">arrow_forward</span>
-              </button>
+        {/* ═══════════════════════════════════════════════════════════════
+            SECTION — TARJETAS VALOR (interactivas)
+        ═══════════════════════════════════════════════════════════════ */}
+        <section className="py-28 px-6 lg:px-20 bg-navy relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.06)_0%,transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(249,115,22,0.05)_0%,transparent_60%)] pointer-events-none" />
+
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+              {valueCards.map((card, idx) => {
+                const isActive = activeValueCard === idx;
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => setActiveValueCard(idx)}
+                    onMouseEnter={() => setActiveValueCard(idx)}
+                    className="relative bg-gradient-to-br from-navy-light to-navy rounded-[2rem] border cursor-pointer overflow-hidden transition-all duration-500"
+                    style={{
+                      borderColor: isActive ? card.accent + '66' : 'rgba(255,255,255,0.07)',
+                      boxShadow: isActive ? `0 28px 70px ${card.glow}, 0 0 0 1px ${card.accent}22` : 'none',
+                      transform: isActive ? 'translateY(-4px)' : 'translateY(0)',
+                    }}
+                  >
+                    {/* Ambient glow blob */}
+                    <div
+                      className="absolute top-0 right-0 w-56 h-56 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 transition-opacity duration-500 pointer-events-none"
+                      style={{ background: card.accent, opacity: isActive ? 0.08 : 0.03 }}
+                    />
+
+                    <div className="relative p-8 lg:p-10 flex flex-col h-full">
+                      {/* Header row: icon + number */}
+                      <div className="flex items-start justify-between mb-6">
+                        <div
+                          className="flex items-center justify-center rounded-2xl transition-all duration-500"
+                          style={{
+                            width: isActive ? '4rem' : '2.75rem',
+                            height: isActive ? '4rem' : '2.75rem',
+                            background: isActive ? card.accent + '22' : 'rgba(255,255,255,0.05)',
+                            border: `1px solid ${isActive ? card.accent + '55' : 'rgba(255,255,255,0.1)'}`,
+                            boxShadow: isActive ? `0 0 30px ${card.iconGlow}` : 'none',
+                          }}
+                        >
+                          <span
+                            className="material-symbols-outlined transition-all duration-500"
+                            style={{
+                              color: isActive ? card.accent : '#64748b',
+                              fontSize: isActive ? '2rem' : '1.375rem',
+                              fontVariationSettings: "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48",
+                            }}
+                          >
+                            {card.icon}
+                          </span>
+                        </div>
+                        <span
+                          className="text-5xl font-black leading-none transition-all duration-500 select-none"
+                          style={{ color: isActive ? card.accent + '33' : 'rgba(255,255,255,0.06)' }}
+                        >
+                          0{idx + 1}
+                        </span>
+                      </div>
+
+                      {/* Label */}
+                      <p
+                        className="text-[10px] font-black uppercase tracking-[0.3em] mb-3 transition-colors duration-300"
+                        style={{ color: isActive ? card.accent : '#64748b' }}
+                      >
+                        {card.label}
+                      </p>
+
+                      {/* Statement */}
+                      <h3
+                        className="text-2xl lg:text-3xl font-black leading-tight transition-colors duration-300"
+                        style={{ fontStyle: 'italic', color: isActive ? '#ffffff' : '#94a3b8' }}
+                      >
+                        {card.statement}
+                      </h3>
+
+                      {/* Description — expands when active */}
+                      <div
+                        className="overflow-hidden transition-all duration-500"
+                        style={{ maxHeight: isActive ? '120px' : '0px', opacity: isActive ? 1 : 0, marginTop: isActive ? '1rem' : '0' }}
+                      >
+                        <p className="text-sm text-slate-400 font-light leading-relaxed">
+                          {card.desc}
+                        </p>
+                      </div>
+
+                      {/* Animated bottom line */}
+                      <div className="mt-6 h-px transition-all duration-500" style={{
+                        width: isActive ? '4rem' : '2rem',
+                        background: isActive ? card.accent : 'rgba(255,255,255,0.1)',
+                        opacity: isActive ? 0.7 : 0.4,
+                      }} />
+                    </div>
+
+                    {/* Active indicator dot */}
+                    <div
+                      className="absolute bottom-4 right-5 w-2 h-2 rounded-full transition-all duration-300"
+                      style={{ background: card.accent, opacity: isActive ? 0.8 : 0, transform: isActive ? 'scale(1)' : 'scale(0)' }}
+                    />
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Page dots */}
-            <div className="flex justify-center gap-2 mt-10">
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button key={i} onClick={() => goToPage(i)} className={`h-2.5 rounded-full transition-all duration-300 ${i === carouselIndex ? 'bg-silver w-8' : 'bg-white/20 hover:bg-white/40 w-2.5'}`} />
+            {/* Indicator pills */}
+            <div className="flex justify-center gap-2 mt-8">
+              {valueCards.map((card, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveValueCard(i)}
+                  className="h-1.5 rounded-full transition-all duration-300"
+                  style={{
+                    width: activeValueCard === i ? '2rem' : '0.5rem',
+                    background: activeValueCard === i ? card.accent : 'rgba(255,255,255,0.2)',
+                  }}
+                />
               ))}
             </div>
           </div>
@@ -526,10 +774,10 @@ function App() {
           <div className="mx-auto max-w-7xl relative">
             <div className="max-w-3xl mx-auto text-center">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.4em] text-silver mb-4">Nuestro diferencial</p>
+                <p className="text-xs font-black uppercase tracking-[0.4em] text-sky mb-4">Nuestro diferencial</p>
                 <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-6" style={{fontStyle: 'italic'}}>
                   No es el cómo.{' '}
-                  <span className="text-silver" style={{fontStyle: 'italic'}}>Es el quién.</span>
+                  <span className="text-sky" style={{fontStyle: 'italic'}}>Es el quién.</span>
                 </h2>
                 <p className="text-lg text-slate-400 font-light leading-relaxed mb-6">
                   Cuando necesitas un cirujano, no eliges el bisturí. Eliges las manos que lo sostienen. La tecnología es una herramienta. Lo que marca la diferencia es quién la aplica, con qué criterio clínico, bajo qué estándar regulatorio y con qué nivel de responsabilidad.
@@ -542,7 +790,7 @@ function App() {
                 <div className="flex flex-wrap justify-center gap-3">
                   {['Modelos validados', 'Data science aplicado', 'MDR & AI Act & GDPR', 'Rigor métrico', 'Arquitectura de decisiones'].map(tag => (
                     <span key={tag} className="inline-flex items-center gap-2 bg-navy-dark/80 border border-white/10 rounded-full px-4 py-2 text-xs text-slate-300 font-light">
-                      <span className="material-symbols-outlined text-silver text-sm">check_circle</span>
+                      <span className="material-symbols-outlined text-orange text-sm">check_circle</span>
                       {tag}
                     </span>
                   ))}
@@ -586,15 +834,15 @@ function App() {
               <div className="relative z-0 grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/10 rounded-[1.5rem] overflow-hidden bg-navy-dark/80 backdrop-blur-md">
               <div className="p-6 md:p-8 text-center border-b md:border-b-0 md:border-r border-white/10">
                 <p className="text-xs text-slate-500 font-light mb-2">Años de experiencia</p>
-                <p className="text-3xl lg:text-4xl font-black text-silver">+12</p>
+                <p className="text-3xl lg:text-4xl font-black text-sky">+12</p>
               </div>
               <div className="p-6 md:p-8 text-center border-b md:border-b-0 md:border-r border-white/10">
                 <p className="text-xs text-slate-500 font-light mb-2">Cumplimiento regulatorio</p>
-                <p className="text-3xl lg:text-4xl font-black text-silver">100%</p>
+                <p className="text-3xl lg:text-4xl font-black text-sky">100%</p>
               </div>
               <div className="p-6 md:p-8 text-center">
                 <p className="text-xs text-slate-500 font-light mb-2">Triple impacto</p>
-                <p className="text-2xl lg:text-3xl font-black text-silver leading-tight">Empresa con propósito</p>
+                <p className="text-2xl lg:text-3xl font-black text-sky leading-tight">Empresa con propósito</p>
               </div>
               </div>
             </div>
@@ -619,7 +867,7 @@ function App() {
               Esto no es consultoría. Esto es experiencia validada trabajando por tus resultados.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full bg-teal px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-navy shadow-[0_20px_40px_rgba(0,188,212,0.3)] hover:scale-105 transition-all duration-300 text-center">
+              <a href="mailto:pablo.hernandez@avisania.tech" className="rounded-full bg-orange px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-white shadow-[0_20px_40px_rgba(249,115,22,0.35)] hover:scale-105 hover:shadow-[0_24px_50px_rgba(249,115,22,0.45)] transition-all duration-300 text-center">
                 Deja que los expertos trabajen por ti
               </a>
               <a href="mailto:pablo.hernandez@avisania.tech?subject=Agendar%20Reuni%C3%B3n%20-%20Avisania" className="rounded-full border-2 border-white/20 px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-white hover:border-silver hover:text-silver transition-all duration-300 text-center">

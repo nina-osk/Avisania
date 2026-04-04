@@ -10,6 +10,8 @@ export default {
       colors: {
         "silver": "#A8B8C8",
         "teal": "#00BCD4",
+        "sky": "#38BDF8",
+        "orange": "#F97316",
         "navy": {
           DEFAULT: "#071826",
           dark: "#040E18",

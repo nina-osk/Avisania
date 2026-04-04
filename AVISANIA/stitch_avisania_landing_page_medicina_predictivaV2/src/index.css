@@ -31,7 +31,7 @@ body::before {
   background-size: 300px;
 }
 
-/* ── Signature: teal top-glow line ── */
+/* ── Signature: sky→teal top-glow line ── */
 body::after {
   content: '';
   position: fixed;
@@ -39,9 +39,9 @@ body::after {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #00BCD4 40%, #00BCD4 60%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #38BDF8 25%, #00BCD4 60%, transparent 100%);
   z-index: 9999;
-  opacity: 0.5;
+  opacity: 0.6;
   pointer-events: none;
 }
 

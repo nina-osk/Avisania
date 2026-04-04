@@ -106,7 +106,7 @@ function Footer() {
         {/* ── Bottom strip ── */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-600 font-light">
-            © 2026 Avisania Lab. Medicina Predictiva de Alto Valor.
+            © 2026 Avisania Lab S.L. Medicina Predictiva de Alto Valor.
           </p>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
