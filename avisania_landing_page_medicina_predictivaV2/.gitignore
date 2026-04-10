@@ -3,6 +3,11 @@ node_modules/
 
 # Build output
 dist/
+dist-ssr/
+
+# Vite temp files
+*.local
+vite.config.js.timestamp*
 
 # Video files (too large for git)
 *.mp4
@@ -28,6 +33,8 @@ desktop.ini
 *.log
 npm-debug.log*
 
+# Test coverage
+coverage/
+
 # Cache
 .cache/
-.parcel-cache/
